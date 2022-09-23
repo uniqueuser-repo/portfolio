@@ -44,7 +44,7 @@ function Banner() {
                         <span className="tagline">Welcome to my Portfolio!</span>
                         <h1>{`Hi, I'm Andrew!`}</h1>
                         <h1><span className="wrap">{text}</span></h1>
-                        <p>A software engineer highly proficient in Java, Spring Boot, and Cloud services (particularly AWS). I am also fluent in Python, Bash, and have worked with many other languages and frameworks.</p>
+                        <p>A software engineer highly proficient in Java, Spring Boot, and Cloud services (particularly AWS - which this site is serverlessly hosted by!). I am also fluent in Python, Bash, and have worked with many other languages and frameworks.</p>
                         <button onClick={() => console.log('connect')}> Let's connect! <ArrowRightCircle size={25}></ArrowRightCircle></button>
                     </Col>
                     <Col xs={12} md={6} xl={5}>

@@ -27,6 +27,11 @@ import iamLogo from '../assets/img/iam.svg';
 import cloudformationLogo from '../assets/img/cloudformation.png';
 import dockerLogo from '../assets/img/docker.png';
 import angularLogo from '../assets/img/angular.webp';
+import colorSharp from "../assets/img/color-sharp.png"
+import saaLogo from "../assets/img/solutions_architect_associate.png";
+import cPractitionerLogo3 from "../assets/img/cloud_practitioner3.png";
+import terraformAssociate from "../assets/img/terraform_associate.png"
+
 
 
 function Skills() {
@@ -48,6 +53,27 @@ function Skills() {
           items: 4
         }
       };
+
+      const certifications = {
+        superLargeDesktop: {
+          breakpoint: { max: 4000, min: 3000 },
+          items: 7
+        },
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 6
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 4
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 3
+        }
+      };
+
+      
 
       return (
           <section className="skills" id="skills">
@@ -182,10 +208,26 @@ function Skills() {
                                     </div>
                                 </Carousel>
                             </Container>
+                            <Container className='skill-row'>
+                            <h4 id='skill-slider-skill-label'>Certifications</h4>
+                                <Carousel responsive={certifications} infinite={true} className="skill-slider" >
+                                    <div className="certItem">
+                                        <img src={saaLogo} alt="AWS Certified Solutions Architect Associate" />
+                                    </div>
+                                    <div className="certItem">
+                                        <img src={cPractitionerLogo3} alt="AWS Certified Cloud Practitioner" />
+                                    </div>
+                                    <div className="certItem">
+                                        <img src={terraformAssociate} alt="Hashicorp Terraform Associate" />
+                                    </div>
+                                </Carousel>
+                            </Container>
                         </div>
                       </Col>
                   </Row>
               </Container>
+              <img className="background-image-left" src={colorSharp} alt=""/>
+              <img className="background-image-right" src={colorSharp} alt=""/>
           </section>
       )
 }

@@ -333,6 +333,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   float: left;
   margin-top: 40px;
   text-align: right;
+  padding-right: 30px;
   width: 100px;
 }
 .skill-slider {
@@ -346,6 +347,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: 64px;
   margin: 0 auto 15px auto;
 }
+
+.certItem {
+  display: block;
+  width: 128px !important;
+  height: 128px !important;
+  margin: 0 auto 15px auto;
+}
+
 .background-image-left {
   top: 28%;
   position: absolute;

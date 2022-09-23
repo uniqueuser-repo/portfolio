@@ -44,8 +44,8 @@ function NavBar() {
           </Nav>
           <span className="navbar-text"> 
             <div className="social-icon">
-                <a href="#"><img src={navIcon1} title="LinkedIn" alt="LinkedIn"/> </a>
-                <a href="#"><img src={navIcon2} id="must-invert" title="GitHub" alt="GitHub"/> </a>
+                <a href="https://linkedin.com/in/andrew-orlowski-08a035175" ><img src={navIcon1} title="LinkedIn" alt="LinkedIn"/> </a>
+                <a href="https://github.com/uniqueuser-repo"><img src={navIcon2} id="must-invert" title="GitHub" alt="GitHub"/> </a>
             </div>
             <button className="vvd" onClick={() => console.log('connect')}> <span>Let's Connect!</span> </button>
           </span>
