@@ -3,29 +3,30 @@ import Nav from 'react-bootstrap/Nav';
 import ProjectCard from './ProjectCard';
 import colorSharp2 from '../assets/img/color-sharp2.png'
 import projImg1 from '../assets/img/project-img1.png'
+import discordImage from '../assets/img/discord_bot.png'
 
 
 function Projects() {
 
     const projects = [
         {
-            title: "Title of Project",
+            title: "BoT_UP",
             description: "Machine Learning Algorithm",
-            imgUrl: projImg1
+            imgUrl: discordImage
         }
     ];
-
+    
     return (
         <section className="project" id="project">
             <Container>
                 <Row>
                     <Col>
                       <h2>Projects</h2>
-                      <h2>Lorem Ipsum</h2>
+                      <h4>Hover for more details</h4>
                       <Tab.Container id="project-tabs" defaultActiveKey="first">
                         <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
                             <Nav.Item>
-                                <Nav.Link eventKey="first">Tab One</Nav.Link>
+                                <Nav.Link eventKey="first">BoT_UP</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="second">Tab Two</Nav.Link>
@@ -39,9 +40,8 @@ function Projects() {
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
                                 <Row>
-                                    
                                     {
-                                        <ProjectCard title={projects[0].title} description={projects[0].description} imgUrl={projImg1} className="img-responsive"/>
+                                        <ProjectCard title={projects[0].title} description={projects[0].description} imgUrl={projects[0].imgUrl}/>
                                     }
                                 </Row>
                             </Tab.Pane>
