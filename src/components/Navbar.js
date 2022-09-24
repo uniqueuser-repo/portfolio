@@ -27,6 +27,7 @@ function NavBar() {
 
       return () => window.removeEventListener("scroll",  onScroll)
   })
+  
   return (
     <Navbar bg="dark" expand="lg" className={scrolled ? "scrolled":""}>
       <Container>

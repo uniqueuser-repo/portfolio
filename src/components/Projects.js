@@ -4,6 +4,9 @@ import ProjectCard from './ProjectCard';
 import colorSharp2 from '../assets/img/color-sharp2.png'
 import projImg1 from '../assets/img/project-img1.png'
 import discordImage from '../assets/img/discord_bot.png'
+import testServerImage from '../assets/img/test_server.jpg'
+import prepchefImage from '../assets/img/prepchef.webp'
+import prepchefImage2 from '../assets/img/prepchef2.webp'
 
 
 function Projects() {
@@ -11,11 +14,21 @@ function Projects() {
     const projects = [
         {
             title: "BoT_UP",
-            description: "Machine Learning Algorithm",
+            description: "Used to automate dining court selection when I was in college. The bot would automatically scrape the dining court websites each day for their food selection, then use machine learning (sklearn) to select which dining court I would choose based on the foods available. Afterwards, the selection was sent to a Discord server where it was broadcasted to my friends and I.",
             imgUrl: discordImage
-        }
+        },
+        {
+            title: "Ternary Trie Test Server",
+            description: "Used to help other students complete a project involving Ternary Tries in our Data Structures & Algorithms course. Using a client-server architecture, students were able to connect to my server and have their implementation compared against mine to check for correctness. 114 students used the application.",
+            imgUrl: testServerImage
+        },
+        {
+            title: "PrepChef",
+            description: "Web application used to search for cooking recipes. Could filter by allergens, ingredients, etc. The backend was Java using Spring Boot with a MySQL relational database. The frontend was written in Vue.",
+            imgUrl: prepchefImage2
+        },
     ];
-    
+
     return (
         <section className="project" id="project">
             <Container>
@@ -29,31 +42,27 @@ function Projects() {
                                 <Nav.Link eventKey="first">BoT_UP</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="second">Tab Two</Nav.Link>
+                                <Nav.Link eventKey="second">Ternary Trie Test Server</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="third">
-                                Tab Three
-                                </Nav.Link>
+                                <Nav.Link eventKey="third">PrepChef</Nav.Link>
                             </Nav.Item>
                         </Nav>
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
-                                <Row>
-                                    {
-                                        <ProjectCard title={projects[0].title} description={projects[0].description} imgUrl={projects[0].imgUrl}/>
-                                    }
-                                </Row>
+                                {
+                                    <ProjectCard title={projects[0].title} description={projects[0].description} imgUrl={projects[0].imgUrl}/>
+                                }
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <Row>
-                                    Lorem Ipsum
-                                </Row>
+                                {
+                                    <ProjectCard title={projects[1].title} description={projects[1].description} imgUrl={projects[1].imgUrl}/>
+                                }
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
-                                <Row>
-                                    Lorem Ipsum
-                                </Row>
+                                {
+                                    <ProjectCard title={projects[2].title} description={projects[2].description} imgUrl={projects[2].imgUrl}/>
+                                }
                             </Tab.Pane>
                         </Tab.Content>
                         </Tab.Container>
