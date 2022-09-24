@@ -4,6 +4,7 @@ import ProjectCard from './ProjectCard';
 import discordImage from '../assets/img/discord_bot.png'
 import testServerImage from '../assets/img/test_server.jpg'
 import prepchefImage2 from '../assets/img/prepchef2.webp'
+import portfolioLogo from '../assets/img/portfolio_logo.jpg'
 
 
 function Projects() {
@@ -24,6 +25,11 @@ function Projects() {
             description: "Web application used to search for cooking recipes. Could filter by allergens, ingredients, etc. The backend was Java using Spring Boot with a MySQL relational database. The frontend was written in Vue.",
             imgUrl: prepchefImage2
         },
+        {
+            title: "My Portfolio",
+            description: "This is a static web application. The frontend was constructed with React and Bootstrap. The domain is registered through Route53, and the static files are hosted on an S3 bucket with CloudFront as a CDN. Custom certificates are used to ensure a HTTPS connection is maintained. All of which is backed by Terraform - meaning the whole stack can be torn down and built up in minutes.",
+            imgUrl: portfolioLogo
+        }
     ];
 
     return (
@@ -44,6 +50,9 @@ function Projects() {
                             <Nav.Item>
                                 <Nav.Link eventKey="third">PrepChef</Nav.Link>
                             </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="fourth">This site!</Nav.Link>
+                            </Nav.Item>
                         </Nav>
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
@@ -59,6 +68,11 @@ function Projects() {
                             <Tab.Pane eventKey="third">
                                 {
                                     <ProjectCard title={projects[2].title} description={projects[2].description} imgUrl={projects[2].imgUrl}/>
+                                }
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="fourth">
+                                {
+                                    <ProjectCard title={projects[3].title} description={projects[3].description} imgUrl={projects[3].imgUrl}/>
                                 }
                             </Tab.Pane>
                         </Tab.Content>

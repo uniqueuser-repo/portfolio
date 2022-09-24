@@ -7,10 +7,11 @@ import Projects from './components/Projects'
 function App() {
   return (
     <div className="App">
-      <Navbar></Navbar>
-      <Banner></Banner>
-      <Skills></Skills>
-      <Projects></Projects>
+      <meta name="viewport" content="1024px"/>
+        <Navbar></Navbar>
+        <Banner></Banner>
+        <Skills></Skills>
+        <Projects></Projects>
     </div>
   );
 }
