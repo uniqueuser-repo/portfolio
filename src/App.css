@@ -150,7 +150,7 @@ span.navbar-text {
 .social-icon a:hover img {
 	filter: brightness(0) saturate(100%) invert(0%) sepia(7%) saturate(98%) hue-rotate(346deg) brightness(95%) contrast(86%);
 }
-.navbar-text button {
+/* .navbar-text button {
   font-weight: 700;
   color: #fff;
   border: 1px solid #fff;
@@ -160,7 +160,7 @@ span.navbar-text {
 	position: relative;
 	background-color: transparent;
 	transition: 0.3s ease-in-out;
-}
+} */
 .navbar-text button span {
   z-index: 1;
 }

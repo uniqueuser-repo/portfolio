@@ -2,7 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {  useState, useEffect } from 'react';
-import logo from '../assets/img/logo.svg'
 import navIcon1 from '../assets/img/nav-icon1.svg'
 import navIcon2 from '../assets/img/Octicons-mark-github.svg'
 
@@ -31,9 +30,6 @@ function NavBar() {
   return (
     <Navbar bg="dark" expand="lg" className={scrolled ? "scrolled":""}>
       <Container>
-        <Navbar.Brand href="#home">
-            <img src={logo} alt="Logo" />
-        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"> 
             <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
@@ -48,7 +44,6 @@ function NavBar() {
                 <a href="https://linkedin.com/in/andrew-orlowski-08a035175" ><img src={navIcon1} title="LinkedIn" alt="LinkedIn"/> </a>
                 <a href="https://github.com/uniqueuser-repo"><img src={navIcon2} id="must-invert" title="GitHub" alt="GitHub"/> </a>
             </div>
-            <button className="vvd" onClick={() => console.log('connect')}> <span>Let's Connect!</span> </button>
           </span>
         </Navbar.Collapse>
       </Container>
