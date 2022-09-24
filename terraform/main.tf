@@ -19,10 +19,16 @@ provider "aws" {
     region = "us-east-1"
 }
 
+locals {
+    root_domain_str = "aorlowski.com"
+    subdomain_str = "www.aorlowski.com"
+    all_subdomains_str = "*.aorlowski.com"
+}
+
 # START ROOT DOMAIN BUCKET
 # START ROOT DOMAIN BUCKET
 resource "aws_s3_bucket" "root-domain" {
-    bucket = "aorlowski.com"
+    bucket = local.root_domain_str
     policy = jsonencode(
         {
             Statement = [
@@ -65,6 +71,9 @@ resource "aws_s3_bucket_website_configuration" "root-domain-bucket-website-confi
     }
 }
 
+# When we upload the build to S3, we need to make sure each individual Object uploaded has the correct content-type associated.
+# If not specified, all files are uploaded as "application/octet-stream", which is definitely wrong and will cause problems.
+# We can use a dictionary (seen below) to look up the content type of a file as we process each of them in the aws_s3_bucket_object.upload_build resource.
 locals {
   mime_types = {
     "css"  = "text/css"
@@ -85,16 +94,21 @@ locals {
   }
 }
 
+locals {
+    build_dir = "/mnt/c/Users/Andy/Desktop/portfolio/build/"
+}
+
 resource "aws_s3_bucket_object" "upload_build" {
-    for_each = fileset("/mnt/c/Users/Andy/Desktop/portfolio/build/", "**")
+    for_each = fileset(local.build_dir, "**")
 
     bucket = aws_s3_bucket.root-domain.bucket
     key = each.value
-    source = "/mnt/c/Users/Andy/Desktop/portfolio/build/${each.value}"
+    source = "${local.build_dir}${each.value}"
 
+    # Determine the content type by getting the extension of the file and searching dor it in the map
     content_type = lookup(tomap(local.mime_types), element(split(".", each.value), length(split(".", each.value)) - 1))
 
-    etag = filemd5("/mnt/c/Users/Andy/Desktop/portfolio/build/${each.value}")
+    etag = filemd5("${local.build_dir}${each.value}")
 }
 # END ROOT DOMAIN BUCKET
 # END ROOT DOMAIN BUCKET
@@ -103,7 +117,7 @@ resource "aws_s3_bucket_object" "upload_build" {
 # START SUBDOMAIN (WWW.) BUCKET
 # START SUBDOMAIN (WWW.) BUCKET
 resource "aws_s3_bucket" "subdomain-www" {
-    bucket = "www.aorlowski.com"
+    bucket = local.subdomain_str
     policy = jsonencode(
         {
             Statement = [
@@ -141,7 +155,7 @@ resource "aws_s3_bucket_website_configuration" "subdomain-www-bucket-website-con
     bucket = aws_s3_bucket.subdomain-www.id
 
     redirect_all_requests_to {
-      host_name = "www.aorlowski.com"
+      host_name = local.subdomain_str
       protocol = "http"
     }
 }
@@ -163,8 +177,8 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
     default_root_object = "index.html"
 
     aliases = [
-        "*.aorlowski.com",
-        "aorlowski.com"
+        local.all_subdomains_str,
+        local.root_domain_str
     ]
     
 
@@ -210,11 +224,15 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
 # END CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
 # END CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
 
+# I don't want Terraform to manage the hosted zone, so I will leave it hardcoded.
+locals {
+  hosted_zone_id = "Z02236511VLB1LAPEVX01"
+}
+
 # Start Route 53 Record for aorlowski.com to have an A Record to the CloudFront distribution
 resource "aws_route53_record" "aorlowski_cloudfront_record" {
-    # I don't want Terraform to manage the hosted zone, so I will leave this hard coded.
-    zone_id = "Z02236511VLB1LAPEVX01"
-    name = "aorlowski.com"
+    zone_id = local.hosted_zone_id
+    name = local.root_domain_str
     type = "A"
 
     alias {
@@ -230,8 +248,8 @@ resource "aws_route53_record" "aorlowski_cloudfront_record" {
 # Start Route 53 Record for www.aorlowski.com to have an A Record to the CloudFront distribution
 resource "aws_route53_record" "wwww_aorlowski_cloudfront_record" {
     # I don't want Terraform to manage the hosted zone, so I will leave this hard coded.
-    zone_id = "Z02236511VLB1LAPEVX01"
-    name = "www.aorlowski.com"
+    zone_id = local.hosted_zone_id
+    name = local.subdomain_str
     type = "A"
 
     alias {
@@ -250,12 +268,12 @@ resource "aws_route53_record" "wwww_aorlowski_cloudfront_record" {
 # START CERTIFICATE FOR *aorlowski.com
 resource "aws_acm_certificate" "certificate" {
     provider = aws.east-1
-    domain_name = "aorlowski.com"
+    domain_name = local.root_domain_str
     validation_method = "DNS"
 
     subject_alternative_names = [
-        "*.aorlowski.com",
-        "aorlowski.com",
+        local.all_subdomains_str,
+        local.root_domain_str,
     ]
 }
 
@@ -268,14 +286,13 @@ resource "aws_route53_record" "certificate_record" {
             type = dvo.resource_record_type
         }
     }
+    zone_id = local.hosted_zone_id
 
     allow_overwrite = true
     name = each.value.name
     records = [each.value.record]
     ttl = 60
     type = each.value.type
-    # I don't want Terraform to manage the hosted zone, so I will leave this hard coded.
-    zone_id = "Z02236511VLB1LAPEVX01"
 }
 
 # Validate ACM Certificate with Route53
