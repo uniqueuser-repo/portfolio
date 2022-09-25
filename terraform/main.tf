@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+variable "accountId" {
+  type = string
+}
+
 data "aws_canonical_user_id" "current_user" {}
 
 # Configure the AWS Provider
@@ -330,11 +334,6 @@ resource "aws_dynamodb_table" "dynamodb_statistics_table" {
 
     timeouts {}
 
-    ttl {
-        attribute_name = "TimeToExist"
-        enabled = false
-    }
-
     lifecycle {
       ignore_changes = [
         write_capacity,
@@ -359,3 +358,177 @@ resource "aws_dynamodb_table_item" "viewer_count_statistic" {
 
 # END DYNAMODB FOR VIEWER COUNT
 # END DYNAMODB FOR VIEWER COUNT
+
+# START API GATEWAY
+resource "aws_api_gateway_rest_api" "aorlowski_rest_api" {
+    name = "aorlowski-rest-api"
+    description = "A REST API for everything backend-related to aorlowski.com"
+    put_rest_api_mode = "overwrite"
+
+    endpoint_configuration {
+      types = [
+          "REGIONAL"
+      ]
+    }
+}
+
+# Start getAndIncrement endpoint
+resource "aws_api_gateway_resource" "aorlowski_visitor_getAndIncrement_resource" {
+    parent_id = aws_api_gateway_rest_api.aorlowski_rest_api.root_resource_id
+    path_part = "viewerCount_getAndIncrement"
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+}
+
+resource "aws_api_gateway_method" "aorlowski_visitor_getAndIncrement_method" {
+    authorization = "NONE"
+    http_method = "POST"
+    resource_id = aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.id
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+}
+
+resource "aws_api_gateway_integration" "aorlowski_visitor_getAndIncrement_integration" {
+    http_method = aws_api_gateway_method.aorlowski_visitor_getAndIncrement_method.http_method
+    resource_id = aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.id
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+    type = "AWS_PROXY"
+    integration_http_method = "POST"
+    #TODO: Change to Terraform'd lambda
+    uri = aws_lambda_function.aorlowski_getAndIncrement_lambda.invoke_arn
+}
+# End getAndIncrement endpoint
+
+# Add option for GET only which won't increment
+resource "aws_api_gateway_method" "aorlowski_visitor_get_method" {
+    authorization = "NONE"
+    http_method = "GET"
+    resource_id = aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.id
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+}
+
+resource "aws_api_gateway_integration" "aorlowski_visitor_get_integration" {
+    http_method = aws_api_gateway_method.aorlowski_visitor_get_method.http_method
+    resource_id = aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.id
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+    type = "AWS_PROXY"
+    integration_http_method = "POST"
+    #TODO: Change to Terraform'd lambda
+    uri = aws_lambda_function.aorlowski_getAndIncrement_lambda.invoke_arn
+}
+# End option for GET only which won't increment
+
+resource "aws_api_gateway_deployment" "aorlowski_rest_api_deployment" {
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+    triggers = {
+        redeployment = sha1(jsonencode(aws_api_gateway_rest_api.aorlowski_rest_api.body))
+    }
+
+    lifecycle {
+        create_before_destroy = true
+    }
+
+    depends_on = [
+        aws_api_gateway_method.aorlowski_visitor_getAndIncrement_method,
+        aws_api_gateway_integration.aorlowski_visitor_getAndIncrement_integration,
+        aws_lambda_function.aorlowski_getAndIncrement_lambda,
+        aws_api_gateway_method.aorlowski_visitor_get_method,
+        aws_api_gateway_integration.aorlowski_visitor_get_integration
+    ]
+}
+
+resource "aws_api_gateway_stage" "aorlowski_production_stage" {
+    deployment_id = aws_api_gateway_deployment.aorlowski_rest_api_deployment.id
+    rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+    stage_name = "aorlowski_production"
+} 
+# END API GATEWAY
+
+# START LAMBDA FOR PROCESSING getAndIncrement FROM API GATEWAY
+data "archive_file" "zip_aorlowski_lambda" {
+    type = "zip"
+    source_file = "../backend/aorlowski_lambda/lambda.py"
+    output_path = "../backend/aorlowski_lambda/lambda.zip"
+}
+
+resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
+    filename      = data.archive_file.zip_aorlowski_lambda.output_path
+    function_name = "aorlowski-get-viewer-count-and-increment"
+    role          = aws_iam_role.aorlowski_getAndIncrement_lambda_role.arn
+    handler       = "lambda.lambda_handler"
+    runtime       = "python3.9"
+
+    source_code_hash = filebase64sha256("../backend/aorlowski_lambda/lambda.py")
+}
+
+# ROLE FOR LAMBDA
+resource "aws_iam_role" "aorlowski_getAndIncrement_lambda_role" {
+    name = "getAndIncrement_lambda_role"
+
+    assume_role_policy = <<POLICY
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+            "Service": "lambda.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
+        }
+    ]
+    }
+    POLICY
+}
+
+# POLICY TO ALLOW LAMBDA ROLE ACCESS TO DYNAMODB
+resource "aws_iam_policy" "aorlowski_lambda_dynamodb_access" {
+    name = "aorlowski_lambda_dynamodb_access"
+
+    policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Effect": "Allow",
+        "Action": [
+            "dynamodb:GetItem",
+            "dynamodb:UpdateItem",
+            "dynamodb:PutItem"
+        ],
+        "Resource": "${aws_dynamodb_table.dynamodb_statistics_table.arn}"
+        }
+    ]
+}
+EOF
+}
+
+# ATTACH ABOVE POLICY TO ABOVE ROLE
+resource "aws_iam_policy_attachment" "lambda_dynamodb_access" {
+    name = "lambda_dynamodb_access"
+    roles = [aws_iam_role.aorlowski_getAndIncrement_lambda_role.name]
+    policy_arn = aws_iam_policy.aorlowski_lambda_dynamodb_access.arn
+}
+
+# LAMBDA PERMISSION TO BE EXECUTED FROM API GATEWAY POST
+resource "aws_lambda_permission" "apigw_lambda_post" {
+    statement_id  = "AllowExecutionFromAPIGatewayPost"
+    action        = "lambda:InvokeFunction"
+    function_name = aws_lambda_function.aorlowski_getAndIncrement_lambda.function_name
+    principal     = "apigateway.amazonaws.com"
+
+    # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
+    source_arn = "arn:aws:execute-api:us-east-2:${var.accountId}:${aws_api_gateway_rest_api.aorlowski_rest_api.id}/*/${aws_api_gateway_method.aorlowski_visitor_getAndIncrement_method.http_method}${aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.path}"
+}
+
+# LAMBDA PERMISSION TO BE EXECUTED FROM API GATEWAY GET
+resource "aws_lambda_permission" "apigw_lambda_get" {
+    statement_id  = "AllowExecutionFromAPIGatewayGet"
+    action        = "lambda:InvokeFunction"
+    function_name = aws_lambda_function.aorlowski_getAndIncrement_lambda.function_name
+    principal     = "apigateway.amazonaws.com"
+
+    # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
+    source_arn = "arn:aws:execute-api:us-east-2:${var.accountId}:${aws_api_gateway_rest_api.aorlowski_rest_api.id}/*/${aws_api_gateway_method.aorlowski_visitor_get_method.http_method}${aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.path}"
+}
+
+# END LAMBDA FOR PROCESSING getAndIncrement FROM API GATEWAY
