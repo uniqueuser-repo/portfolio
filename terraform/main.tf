@@ -510,6 +510,7 @@ resource "aws_iam_policy" "aorlowski_lambda_dynamodb_access" {
     ]
 }
 EOF
+    # TODO: Create log group and specify arn above instead of *:*:*
 }
 
 # ATTACH ABOVE POLICY TO ABOVE ROLE
