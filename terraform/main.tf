@@ -392,7 +392,6 @@ resource "aws_api_gateway_integration" "aorlowski_visitor_getAndIncrement_integr
     rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
     type = "AWS_PROXY"
     integration_http_method = "POST"
-    #TODO: Change to Terraform'd lambda
     uri = aws_lambda_function.aorlowski_getAndIncrement_lambda.invoke_arn
 }
 # End getAndIncrement endpoint
@@ -411,7 +410,6 @@ resource "aws_api_gateway_integration" "aorlowski_visitor_get_integration" {
     rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
     type = "AWS_PROXY"
     integration_http_method = "POST"
-    #TODO: Change to Terraform'd lambda
     uri = aws_lambda_function.aorlowski_getAndIncrement_lambda.invoke_arn
 }
 # End option for GET only which won't increment
@@ -445,6 +443,7 @@ resource "aws_api_gateway_stage" "aorlowski_production_stage" {
 # START LAMBDA FOR PROCESSING getAndIncrement FROM API GATEWAY
 data "archive_file" "zip_aorlowski_lambda" {
     type = "zip"
+    # TODO: Replace hardcoded paths with variables
     source_file = "../backend/aorlowski_lambda/lambda.py"
     output_path = "../backend/aorlowski_lambda/lambda.zip"
 }
@@ -456,6 +455,7 @@ resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
     handler       = "lambda.lambda_handler"
     runtime       = "python3.9"
 
+    # TODO: Replace hardcoded paths with variables
     source_code_hash = filebase64sha256("../backend/aorlowski_lambda/lambda.py")
 }
 
