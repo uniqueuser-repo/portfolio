@@ -379,6 +379,7 @@ resource "aws_api_gateway_resource" "aorlowski_visitor_getAndIncrement_resource"
     rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
 }
 
+# POST on /viewerCount_getAndIncrement
 resource "aws_api_gateway_method" "aorlowski_visitor_getAndIncrement_method" {
     authorization = "NONE"
     http_method = "POST"
@@ -496,6 +497,15 @@ resource "aws_iam_policy" "aorlowski_lambda_dynamodb_access" {
             "dynamodb:PutItem"
         ],
         "Resource": "${aws_dynamodb_table.dynamodb_statistics_table.arn}"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+        ],
+        "Resource": "arn:aws:logs:*:*:*"
         }
     ]
 }
