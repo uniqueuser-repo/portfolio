@@ -57,11 +57,11 @@ function Skills() {
       const certifications = {
         superLargeDesktop: {
           breakpoint: { max: 4000, min: 3000 },
-          items: 7
+          items: 6
         },
         desktop: {
           breakpoint: { max: 3000, min: 1024 },
-          items: 6
+          items: 4
         },
         tablet: {
           breakpoint: { max: 1024, min: 464 },

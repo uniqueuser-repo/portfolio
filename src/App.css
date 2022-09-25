@@ -450,7 +450,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 50% !important;
   height: 50%;
   left: 25%
-  /* margin-left: 310px; */
 }
 
 .proj-imgbx::before {
@@ -481,16 +480,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   opacity: 1;
 }
 .proj-txtx h4 {
-  font-size: 30px;
+  font-size: 3vmin;
   font-weight: 700;
-  letter-spacing: 0.8px;
   line-height: 1.1em;
 }
 .proj-txtx span {
   font-style: italic;
   font-weight: 400;
-  font-size: 15px;
-  letter-spacing: 0.8px;
+  font-size: 1.5vmin;
 }
 .background-image-right {
   top: 20%;

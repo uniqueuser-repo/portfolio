@@ -11,9 +11,9 @@ function Projects() {
 
     const projects = [
         {
-            title: "BoT_UP",
-            description: "Used to automate dining court selection (when I was in college and ate at dining courts). The bot would automatically scrape the dining court websites each day for their food selection, then use machine learning (sklearn) to select which dining court I would choose based on the foods available. Afterwards, the selection was sent to a Discord server where it was broadcasted to my friends and I.",
-            imgUrl: discordImage
+            title: "PrepChef",
+            description: "Web application used to search for cooking recipes. Could filter by allergens, ingredients, etc. The backend hosted a RESTful API in Java using Spring Boot with a MySQL relational database. Most of these endpoints were written by me. The frontend was written in Vue.",
+            imgUrl: prepchefImage2
         },
         {
             title: "Ternary Trie Test Server",
@@ -21,9 +21,9 @@ function Projects() {
             imgUrl: testServerImage
         },
         {
-            title: "PrepChef",
-            description: "Web application used to search for cooking recipes. Could filter by allergens, ingredients, etc. The backend was Java using Spring Boot with a MySQL relational database. The frontend was written in Vue.",
-            imgUrl: prepchefImage2
+            title: "BoT_UP",
+            description: "Used to automate dining court selection (when I was in college and ate at dining courts). The bot would automatically scrape the dining court websites each day for their food selection, then use machine learning (sklearn) to select which dining court I would choose based on the foods available. Afterwards, the selection was sent to a Discord server where it was broadcasted to my friends and I.",
+            imgUrl: discordImage
         },
         {
             title: "My Portfolio",
@@ -42,13 +42,13 @@ function Projects() {
                       <Tab.Container id="project-tabs" defaultActiveKey="first">
                         <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
                             <Nav.Item>
-                                <Nav.Link eventKey="first">BoT_UP</Nav.Link>
+                                <Nav.Link eventKey="first">PrepChef</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="second">Ternary Trie Test Server</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="third">PrepChef</Nav.Link>
+                                <Nav.Link eventKey="third">BoT_UP</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="fourth">This site!</Nav.Link>
