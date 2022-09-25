@@ -10,7 +10,7 @@ function VisitorCounter () {
             })
     }
     return (
-        <h1>Visitor Counter: {visitorCount}</h1>
+        <p id="visitor_counter">Visitor Counter: {visitorCount}</p>
     )
 }
 

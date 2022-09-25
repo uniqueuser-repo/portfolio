@@ -82,6 +82,16 @@ p.danger {
 	color: red;
 }
 /************ Navbar Css ************/
+#visitor_counter {
+  font-weight: 400;
+  color: #fff !important;
+  letter-spacing: 0.8px;
+  padding: 0 25px;
+  font-size: 18px;
+  opacity: 0.75;
+  margin: 0;
+}
+
 nav.navbar {
   padding: 18px 0;
   position: fixed;

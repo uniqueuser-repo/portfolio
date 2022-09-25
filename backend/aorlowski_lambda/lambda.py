@@ -27,14 +27,14 @@ def lambda_handler(event, context):
     # Whitelisted origins to access this endpoint are:
     whitelisted_origins = {
         'http://localhost:3000': 'http://localhost:3000',
-        '*.aorlowski.com': '*.aorlowski.com',
+        'https://www.aorlowski.com': 'https://www.aorlowski.com',
         'https://aorlowski.com': 'https://aorlowski.com'
     }
     
     print('event is ' + str(event))
     request_origin = 'NoOriginFoundInHeaders'
-    if 'headers' in event and event['headers'] is not None and 'Origin' in event['headers'] and event['headers']['Origin'] is not None:
-        request_origin = event[headers]['Origin']
+    if 'headers' in event and event['headers'] is not None and 'origin' in event['headers'] and event['headers']['origin'] is not None:
+        request_origin = event['headers']['origin']
 
     
     origin_to_allow = 'http://localhost:3000'
