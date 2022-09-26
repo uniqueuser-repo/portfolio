@@ -431,6 +431,10 @@ resource "aws_api_gateway_method_settings" "settings" {
     # Set throttling values
     throttling_burst_limit = 3
     throttling_rate_limit  = 5
+
+    # Enable logging
+    metrics_enabled = true
+    logging_level = "ERROR"
   }
 }
 # END throttling settings for API Gateway
@@ -482,6 +486,15 @@ resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
     source_code_hash = filebase64sha256("../backend/aorlowski_lambda/lambda.py")
 }
 
+# CloudWatch Log Group for Lambda
+module "lambda_log_group" {
+  source  = "terraform-aws-modules/cloudwatch/aws//modules/log-group"
+  version = "~> 3.0"
+
+  name              = "/aws/lambda/aorlowski-get-viewer-count-and-increment"
+  retention_in_days = 14
+}
+
 # ROLE FOR LAMBDA
 resource "aws_iam_role" "aorlowski_getAndIncrement_lambda_role" {
     name = "getAndIncrement_lambda_role"
@@ -527,12 +540,11 @@ resource "aws_iam_policy" "aorlowski_lambda_dynamodb_access" {
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
         ],
-        "Resource": "arn:aws:logs:*:*:*"
+        "Resource": "${module.lambda_log_group.cloudwatch_log_group_arn}"
         }
     ]
 }
 EOF
-    # TODO: Create log group and specify arn above instead of *:*:*
 }
 
 # ATTACH ABOVE POLICY TO ABOVE ROLE
