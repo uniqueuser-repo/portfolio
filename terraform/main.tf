@@ -401,9 +401,9 @@ resource "aws_api_gateway_integration" "aorlowski_visitor_getAndIncrement_integr
     integration_http_method = "POST"
     uri = aws_lambda_function.aorlowski_getAndIncrement_lambda.invoke_arn
 }
-# End getAndIncrement endpoint
+# End POST method
 
-# Add option for GET only which won't increment
+# Add method for GET only which won't increment
 resource "aws_api_gateway_method" "aorlowski_visitor_get_method" {
     authorization = "NONE"
     http_method = "GET"
@@ -419,7 +419,23 @@ resource "aws_api_gateway_integration" "aorlowski_visitor_get_integration" {
     integration_http_method = "POST"
     uri = aws_lambda_function.aorlowski_getAndIncrement_lambda.invoke_arn
 }
-# End option for GET only which won't increment
+# End method for GET only which won't increment
+
+# START throttling settings for API Gateway
+resource "aws_api_gateway_method_settings" "settings" {
+  rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
+  stage_name  = aws_api_gateway_stage.aorlowski_production_stage.stage_name
+  method_path = "*/*"
+
+  settings {
+    # Set throttling values
+    throttling_burst_limit = 3
+    throttling_rate_limit  = 5
+  }
+}
+# END throttling settings for API Gateway
+
+# End getAndIncrement endpoint
 
 resource "aws_api_gateway_deployment" "aorlowski_rest_api_deployment" {
     rest_api_id = aws_api_gateway_rest_api.aorlowski_rest_api.id
@@ -526,7 +542,7 @@ resource "aws_iam_policy_attachment" "lambda_dynamodb_access" {
     policy_arn = aws_iam_policy.aorlowski_lambda_dynamodb_access.arn
 }
 
-# LAMBDA PERMISSION TO BE EXECUTED FROM API GATEWAY POST
+# LAMBDA PERMISSION TO ALLOW EXECUTION FROM API GATEWAY POST
 resource "aws_lambda_permission" "apigw_lambda_post" {
     statement_id  = "AllowExecutionFromAPIGatewayPost"
     action        = "lambda:InvokeFunction"
@@ -537,7 +553,7 @@ resource "aws_lambda_permission" "apigw_lambda_post" {
     source_arn = "arn:aws:execute-api:us-east-2:${var.accountId}:${aws_api_gateway_rest_api.aorlowski_rest_api.id}/*/${aws_api_gateway_method.aorlowski_visitor_getAndIncrement_method.http_method}${aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.path}"
 }
 
-# LAMBDA PERMISSION TO BE EXECUTED FROM API GATEWAY GET
+# LAMBDA PERMISSION TO ALLOW EXECUTION FROM API GATEWAY GET
 resource "aws_lambda_permission" "apigw_lambda_get" {
     statement_id  = "AllowExecutionFromAPIGatewayGet"
     action        = "lambda:InvokeFunction"
@@ -547,5 +563,4 @@ resource "aws_lambda_permission" "apigw_lambda_get" {
     # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html
     source_arn = "arn:aws:execute-api:us-east-2:${var.accountId}:${aws_api_gateway_rest_api.aorlowski_rest_api.id}/*/${aws_api_gateway_method.aorlowski_visitor_get_method.http_method}${aws_api_gateway_resource.aorlowski_visitor_getAndIncrement_resource.path}"
 }
-
 # END LAMBDA FOR PROCESSING getAndIncrement FROM API GATEWAY
