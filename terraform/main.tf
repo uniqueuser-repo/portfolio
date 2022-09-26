@@ -166,6 +166,14 @@ resource "aws_s3_bucket_website_configuration" "subdomain-www-bucket-website-con
 # END SUBDOMAIN (WWW.) BUCKET
 # END SUBDOMAIN (WWW.) BUCKET
 
+# START CLOUDFRONT LOGS BUCKET
+# START CLOUDFRONT LOGS BUCKET
+resource "aws_s3_bucket" "aorlowski_cloudwatch" {
+    bucket = "aorlowski-cloudwatch"
+}
+# END CLOUDFRONT LOGS BUCKET
+# END CLOUDFRONT LOGS BUCKET
+
 # START CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
 # START CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
 resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
@@ -216,6 +224,12 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
       iam_certificate_id = ""
       minimum_protocol_version = "TLSv1.2_2021"
       ssl_support_method =  "sni-only"
+    }
+
+    logging_config {
+        include_cookies = false
+        bucket = aws_s3_bucket.aorlowski_cloudwatch.bucket_domain_name
+        prefix = "aorlowski"
     }
 
     price_class = "PriceClass_100"
