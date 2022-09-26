@@ -1,17 +1,28 @@
-import {  useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 
-function VisitorCounter () {
-    const [visitorCount, setVisitorCount] = useState('Loading...')
-    if (visitorCount === 'Loading...') {
-        axios.post('https://api.aorlowski.com/viewerCount_getAndIncrement')
-            .then((response) => {
-                setVisitorCount(response.data)
-            })
+class VisitorCounterClass extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visitorCount: 'Loading...'
+        }
     }
-    return (
-        <p id="visitor_counter">Visitor Counter: {visitorCount}</p>
-    )
+
+    componentDidMount() {
+        if (this.state.visitorCount === 'Loading...') {
+            axios.post('https://api.aorlowski.com/viewerCount_getAndIncrement')
+            .then((response) => {
+                this.setState({visitorCount: response.data})
+            })
+        }
+    }
+
+    render() {
+        return (
+            <p id="visitor_counter">Visitor Counter: {this.state.visitorCount}</p>
+        )
+    }
 }
 
-export default VisitorCounter;
+export default VisitorCounterClass;
