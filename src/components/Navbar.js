@@ -5,6 +5,7 @@ import {  useState, useEffect } from 'react';
 import navIcon1 from '../assets/img/nav-icon1.svg'
 import navIcon2 from '../assets/img/Octicons-mark-github.svg'
 import VisitorCounter from './VisitorCounter.js'
+import VisitorCounterClass from './VisitorCounterClass.js'
 
 function NavBar() {
   const [activeLink, setActiveLink] = useState('home');
@@ -40,7 +41,7 @@ function NavBar() {
             <Nav.Link href="#skills" className={activeLink === 'skills' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
             <Nav.Link href="#projects" className={activeLink === 'projects' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
           </Nav>
-          <VisitorCounter/>
+          <VisitorCounterClass/>
           <span className="navbar-text"> 
             <div className="social-icon">
                 <a href="https://linkedin.com/in/andrew-orlowski-08a035175/" target="_blank" rel="noreferrer noopener"><img src={navIcon1} title="LinkedIn" alt="LinkedIn"/> </a>
