@@ -489,8 +489,8 @@ locals {
 data "archive_file" "zip_aorlowski_lambda" {
     type = "zip"
     # TODO: Replace hardcoded paths with variables
-    source_file = "${path_to_backend}lambda.py"
-    output_path = "${path_to_backend}lambda.zip"
+    source_file = "${local.path_to_backend}lambda.py"
+    output_path = "${local.path_to_backend}lambda.zip"
 }
 
 resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
@@ -501,7 +501,7 @@ resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
     runtime       = "python3.9"
 
     # TODO: Replace hardcoded paths with variables
-    source_code_hash = filebase64sha256("${path_to_backend}lambda.py")
+    source_code_hash = filebase64sha256("${local.path_to_backend}lambda.py")
 }
 
 # CloudWatch Log Group for Lambda
