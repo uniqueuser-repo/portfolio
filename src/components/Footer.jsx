@@ -14,7 +14,7 @@ export default function App() {
                 Andrew Orlowski
               </h6>
               <p>
-                Software engineer with substantial experience with backend development and a passion for the Cloud. High interest in frontend languages and frameworks.
+                Software engineer with substantial experience with backend development, DevOps, and the Cloud. High interest in frontend languages and frameworks.
               </p>
             </MDBCol>
 
