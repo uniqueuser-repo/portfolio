@@ -11,6 +11,7 @@ resource "aws_dynamodb_table" "dynamodb_statistics_table" {
     write_capacity = 0
     stream_enabled = false
     table_class = "STANDARD_INFREQUENT_ACCESS"
+    
 
     attribute {
       name = "statistic"
@@ -18,7 +19,7 @@ resource "aws_dynamodb_table" "dynamodb_statistics_table" {
     }
 
     point_in_time_recovery {
-      enabled = false
+      enabled = true
     }
 
     timeouts {}
