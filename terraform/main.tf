@@ -354,6 +354,12 @@ resource "aws_dynamodb_table_item" "viewer_count_statistic" {
         "Quantity": {"N": "0"}
     }
     ITEM
+
+    lifecycle {
+        ignore_changes = [
+          item
+        ]
+    }
 }
 
 # END DYNAMODB FOR VIEWER COUNT
