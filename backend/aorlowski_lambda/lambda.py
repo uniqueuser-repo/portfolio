@@ -40,7 +40,7 @@ def lambda_handler(event, context):
     origin_to_allow = 'http://localhost:3000'
     if request_origin in whitelisted_origins:
         origin_to_allow = request_origin
-    #TODO implement
+
     result = {
         "isBase64Encoded": False,
         "statusCode": "200",

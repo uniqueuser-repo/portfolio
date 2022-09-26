@@ -40,7 +40,7 @@ function Projects() {
                       <h2 id="projects">Projects</h2>
                       <h4>Hover for more details</h4>
                       <Tab.Container id="project-tabs" defaultActiveKey="first">
-                        <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
+                        <Nav variant="pills" className="nav-pills mb-3 justify-content-center align-items-center" id="pills-tab">
                             <Nav.Item>
                                 <Nav.Link eventKey="first">PrepChef</Nav.Link>
                             </Nav.Item>
@@ -71,6 +71,9 @@ function Projects() {
                                 }
                             </Tab.Pane>
                             <Tab.Pane eventKey="fourth">
+                                <div className='my-class'>
+                                    <a href="https://github.com/uniqueuser-repo/portfolio"> View source code here.</a>
+                                </div>
                                 {
                                     <ProjectCard title={projects[3].title} description={projects[3].description} imgUrl={projects[3].imgUrl}/>
                                 }
@@ -80,7 +83,6 @@ function Projects() {
                     </Col>
                 </Row>
             </Container>
-            {/* <img className="background-image-right" src={colorSharp2}/> */}
         </section>
     )
 

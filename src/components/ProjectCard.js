@@ -1,4 +1,4 @@
-function projectCard({title, description, imgUrl}) {
+function projectCard({title, description, imgUrl, sourceCode}) {
   return (
         <div className="proj-imgbx">
             <img src={imgUrl} alt="Project"/>
@@ -7,6 +7,8 @@ function projectCard({title, description, imgUrl}) {
                 <span id="desc1">{description}</span>
             </div>
         </div>
+        
+      
   )
 }
 

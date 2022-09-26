@@ -94,6 +94,7 @@ locals {
     "jpg" = "image/jpeg"
     "jpeg" = "image/jpeg"
     "woff" = "font/woff"
+    "woff2" = "font/woff2"
     "eot" = "application/vnd.ms"
   }
 }
@@ -481,12 +482,15 @@ resource "aws_api_gateway_stage" "aorlowski_production_stage" {
 } 
 # END API GATEWAY
 
+locals {
+    path_to_backend = "../backend/aorlowski_lambda/"
+}
 # START LAMBDA FOR PROCESSING getAndIncrement FROM API GATEWAY
 data "archive_file" "zip_aorlowski_lambda" {
     type = "zip"
     # TODO: Replace hardcoded paths with variables
-    source_file = "../backend/aorlowski_lambda/lambda.py"
-    output_path = "../backend/aorlowski_lambda/lambda.zip"
+    source_file = "${path_to_backend}lambda.py"
+    output_path = "${path_to_backend}lambda.zip"
 }
 
 resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
@@ -497,7 +501,7 @@ resource "aws_lambda_function" "aorlowski_getAndIncrement_lambda" {
     runtime       = "python3.9"
 
     # TODO: Replace hardcoded paths with variables
-    source_code_hash = filebase64sha256("../backend/aorlowski_lambda/lambda.py")
+    source_code_hash = filebase64sha256("${path_to_backend}lambda.py")
 }
 
 # CloudWatch Log Group for Lambda
