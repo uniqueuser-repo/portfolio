@@ -72,7 +72,7 @@ function Projects() {
                             </Tab.Pane>
                             <Tab.Pane eventKey="fourth">
                                 <div className='my-class'>
-                                    <a href="https://github.com/uniqueuser-repo/portfolio"> View source code here.</a>
+                                    <a href="https://github.com/uniqueuser-repo/portfolio" target="_blank" rel="noreferrer noopener"> View source code here.</a>
                                 </div>
                                 {
                                     <ProjectCard title={projects[3].title} description={projects[3].description} imgUrl={projects[3].imgUrl}/>
