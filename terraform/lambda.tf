@@ -76,7 +76,7 @@ resource "aws_iam_policy" "aorlowski_lambda_dynamodb_access" {
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
         ],
-        "Resource": "${module.lambda_log_group.cloudwatch_log_group_arn}"
+        "Resource": "${module.lambda_log_group.cloudwatch_log_group_arn}:*"
         }
     ]
 }
