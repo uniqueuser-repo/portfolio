@@ -49,3 +49,17 @@ resource "aws_route53_record" "certificate_record" {
     type = each.value.type
 }
 # End Route 53 Record for aorlowski.com to utilize certificate for HTTPS
+
+# Start Route53 Record to allow API Gateway to use Custom Domain Name
+resource "aws_route53_record" "api_gateway_record" {
+  name    = aws_api_gateway_domain_name.gateway_domain_name_aorlowski.domain_name
+  type    = "A"
+  zone_id = local.hosted_zone_id
+
+  alias {
+    evaluate_target_health = false
+    name                   = aws_api_gateway_domain_name.gateway_domain_name_aorlowski.regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.gateway_domain_name_aorlowski.regional_zone_id
+  }
+}
+# Start Route53 Record to allow API Gateway to use Custom Domain Name

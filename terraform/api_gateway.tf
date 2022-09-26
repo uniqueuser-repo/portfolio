@@ -65,6 +65,7 @@ resource "aws_api_gateway_integration" "aorlowski_visitor_get_integration" {
 }
 # END METHOD GET on /viewerCount_getAndIncrement INTEGRATION WITH LAMBDA
 
+# START API Gateway Account Configuration to allow logs to flow to Cloudwatch
 resource "aws_api_gateway_account" "demo" {
     provider = aws.east-1
     cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
@@ -117,6 +118,7 @@ resource "aws_iam_role_policy" "cloudwatch" {
 }
 EOF
 }
+# END API Gateway Account Configuration to allow logs to flow to Cloudwatch
 
 # START throttling settings for API Gateway
 resource "aws_api_gateway_method_settings" "settings" {
@@ -168,6 +170,27 @@ resource "aws_api_gateway_stage" "aorlowski_production_stage" {
     stage_name = "aorlowski_production"
 } 
 # END API Gateway production stage
+
+# START API Gateway Custom Domain Name
+resource "aws_api_gateway_domain_name" "gateway_domain_name_aorlowski" {
+    provider = aws.east-1
+    regional_certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
+    domain_name     = "api.aorlowski.com"
+
+    endpoint_configuration {
+        types = ["REGIONAL"]
+    }
+}
+# END API Gateway Custom Domain Name
+
+# START attach custom domain name to API Gateway
+resource "aws_api_gateway_base_path_mapping" "domain_attachment_aorlowski" {
+    provider = aws.east-1
+    api_id      = aws_api_gateway_rest_api.aorlowski_rest_api.id
+    stage_name  = aws_api_gateway_stage.aorlowski_production_stage.stage_name
+    domain_name = aws_api_gateway_domain_name.gateway_domain_name_aorlowski.domain_name
+}
+# END attach custom domain name to API GAteway
 
 # END API GATEWAY
 # END API GATEWAY
