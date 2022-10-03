@@ -25,7 +25,7 @@ locals {
     "eot" = "application/vnd.ms"
     }
 
-    build_dir = "/mnt/c/Users/Andy/Desktop/portfolio/build/"
+    build_dir = "../build/"
 
     # I don't want Terraform to manage the hosted zone, so I will leave it hardcoded.
     hosted_zone_id = "Z02236511VLB1LAPEVX01"
