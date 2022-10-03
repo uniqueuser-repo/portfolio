@@ -11,15 +11,19 @@ import {
   Route,
 } from "react-router-dom";
 import Resume from './components/Resume';
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <Navbar></Navbar>
       <Switch>
         <Route path="/resume" component={Resume}/>
         <Route path="/" component={App}/>
       </Switch>
+      <Footer></Footer>
     </BrowserRouter>
   </React.StrictMode>
 );

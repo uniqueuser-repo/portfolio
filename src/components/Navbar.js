@@ -6,6 +6,7 @@ import navIcon1 from '../assets/img/nav-icon1.svg'
 import navIcon2 from '../assets/img/Octicons-mark-github.svg'
 import VisitorCounter from './VisitorCounter.js'
 import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
 
 function NavBar() {
   const [activeLink, setActiveLink] = useState('home');
@@ -17,6 +18,7 @@ function NavBar() {
 
       if (value === 'resume') {
         history.push("/resume");
+        window.scrollTo(0, 0);
       } else {
         history.push("/");
       }
@@ -62,4 +64,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);

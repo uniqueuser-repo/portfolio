@@ -8,11 +8,9 @@ function MainPage() {
 
     return (
         <div>
-            <Navbar></Navbar>
             <Banner></Banner>
             <Skills></Skills>
             <Projects></Projects>
-            <Footer></Footer>
         </div>
     )
 }
