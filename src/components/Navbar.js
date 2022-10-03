@@ -5,13 +5,21 @@ import {  useState, useEffect } from 'react';
 import navIcon1 from '../assets/img/nav-icon1.svg'
 import navIcon2 from '../assets/img/Octicons-mark-github.svg'
 import VisitorCounter from './VisitorCounter.js'
+import { useHistory } from "react-router-dom";
 
 function NavBar() {
   const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const history = useHistory();
 
   const onUpdateActiveLink = (value) => {
       setActiveLink(value);
+
+      if (value === 'resume') {
+        history.push("/resume");
+      } else {
+        history.push("/");
+      }
   }
 
   useEffect(() => {
@@ -39,6 +47,7 @@ function NavBar() {
             <Nav.Link href="#home" className={activeLink === 'home' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
             <Nav.Link href="#skills" className={activeLink === 'skills' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
             <Nav.Link href="#projects" className={activeLink === 'projects' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
+            <Nav.Link href="#resume" className={activeLink === 'resume' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('resume')}>Resume</Nav.Link>
           </Nav>
           <VisitorCounter/>
           <span className="navbar-text"> 

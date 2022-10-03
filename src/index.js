@@ -5,11 +5,22 @@ import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'mdbreact/dist/css/mdb.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Resume from './components/Resume';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/resume" component={Resume}/>
+        <Route path="/" component={App}/>
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
