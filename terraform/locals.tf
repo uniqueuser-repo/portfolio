@@ -23,6 +23,7 @@ locals {
     "woff" = "font/woff"
     "woff2" = "font/woff2"
     "eot" = "application/vnd.ms"
+    "pdf" = "application/pdf"
     }
 
     build_dir = "../build/"
