@@ -1,4 +1,3 @@
-import { Document , Page} from 'react-pdf';
 import AndyResume from '../assets/Andrew_Orlowski_Resume.pdf';
 
 function Resume() {

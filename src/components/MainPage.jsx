@@ -1,8 +1,6 @@
-import Navbar from "./Navbar"
 import Banner from './/Banner'
 import Skills from './Skills'
 import Projects from './/Projects'
-import Footer from './Footer'
 
 function MainPage() {
 

@@ -62,6 +62,13 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
           restriction_type = "none"
         }
     }
+
+    custom_error_response {
+      error_caching_min_ttl = 60
+      error_code = 403
+      response_code = 200
+      response_page_path = "/index.html"
+    }
 }
 # END CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
 # END CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
