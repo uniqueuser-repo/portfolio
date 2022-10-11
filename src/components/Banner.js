@@ -5,7 +5,7 @@ import headerImg1 from "../assets/img/computer-icon.png"
 function Banner() {
     const [loopNum, setLoopNum] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
-    const toRotate = [ "Software Engineer", "Developer" ]
+    const toRotate = [ "Engineer", "Developer" ]
     const [text, setText] = useState('');
     const [delta, setDelta] = useState(150);
 
