@@ -26,7 +26,7 @@ locals {
     "pdf" = "application/pdf"
     }
 
-    build_dir = "../build/"
+    build_dir = "../frontend/build/"
 
     # I don't want Terraform to manage the hosted zone, so I will leave it hardcoded.
     hosted_zone_id = "Z02236511VLB1LAPEVX01"
