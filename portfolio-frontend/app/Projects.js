@@ -5,6 +5,7 @@ import discordImage from '../public/img/discord_bot.png'
 import testServerImage from '../public/img/test_server.jpg'
 import prepchefImage2 from '../public/img/prepchef2.webp'
 import portfolioLogo from '../public/img/portfolio_logo.jpg'
+import Image from 'next/image'
 
 
 function Projects() {
@@ -13,22 +14,22 @@ function Projects() {
         {
             title: "PrepChef",
             description: "Web application used to search for cooking recipes. Could filter by allergens, ingredients, etc. The backend hosted a RESTful API in Java using Spring Boot with a MySQL relational database. Most of these endpoints were written by me. The frontend was written in Vue.",
-            imgUrl: prepchefImage2.src
+            imgUrl: prepchefImage2
         },
         {
             title: "Ternary Trie Test Server",
             description: "Used to help other students complete a project involving Ternary Tries in our Data Structures & Algorithms course. Using a client-server architecture, students were able to connect to my server and have their implementation compared against mine to check for correctness. 114 students used the application.",
-            imgUrl: testServerImage.src
+            imgUrl: testServerImage
         },
         {
             title: "BoT_UP",
             description: "Used to automate dining court selection (when I was in college and ate at dining courts). The bot would automatically scrape the dining court websites each day for their food selection, then use machine learning (sklearn) to select which dining court I would choose based on the foods available. Afterwards, the selection was sent to a Discord server where it was broadcasted to my friends and I.",
-            imgUrl: discordImage.src
+            imgUrl: discordImage
         },
         {
             title: "My Portfolio",
             description: "This is a serverless web application. The frontend was constructed with React and Bootstrap. The domain is registered through Route53 and the static files are hosted on an S3 bucket with CloudFront as a CDN. A custom certificate is used to ensure a HTTPS connection is maintained. The visitor counter pings an API Gateway RESTful endpoint which triggers a Lambda that updates DynamoDB and returns the counter. All of which is backed by Terraform - meaning the whole stack can be torn down and built up in minutes without any manual intervention.",
-            imgUrl: portfolioLogo.src
+            imgUrl: portfolioLogo
         }
     ];
 
@@ -57,17 +58,17 @@ function Projects() {
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
                                 {
-                                    <ProjectCard title={projects[0].title} description={projects[0].description} imgUrl={projects[0].imgUrl}/>
+                                    <ProjectCard title={projects[0].title} description={projects[0].description} imgUrl={projects[0].imgUrl.src}/>
                                 }
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
                                 {
-                                    <ProjectCard title={projects[1].title} description={projects[1].description} imgUrl={projects[1].imgUrl}/>
+                                    <ProjectCard title={projects[1].title} description={projects[1].description} imgUrl={projects[1].imgUrl.src}/>
                                 }
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
                                 {
-                                    <ProjectCard title={projects[2].title} description={projects[2].description} imgUrl={projects[2].imgUrl}/>
+                                    <ProjectCard title={projects[2].title} description={projects[2].description} imgUrl={projects[2].imgUrl.src}/>
                                 }
                             </Tab.Pane>
                             <Tab.Pane eventKey="fourth">
@@ -75,7 +76,7 @@ function Projects() {
                                     <a href="https://github.com/uniqueuser-repo/portfolio" target="_blank" rel="noreferrer noopener"> View source code here.</a>
                                 </div>
                                 {
-                                    <ProjectCard title={projects[3].title} description={projects[3].description} imgUrl={projects[3].imgUrl}/>
+                                    <ProjectCard title={projects[3].title} description={projects[3].description} imgUrl={projects[3].imgUrl.src}/>
                                 }
                             </Tab.Pane>
                         </Tab.Content>

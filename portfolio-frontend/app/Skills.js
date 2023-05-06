@@ -89,51 +89,51 @@ function Skills() {
                             <h4 id='skill-slider-skill-label'>Expert</h4>
                                 <Carousel responsive={responsive} infinite={true} className="skill-slider" >
                                     <div className="item">
-                                        <img src={javaLogo2} alt="Java" />
+                                        <img src={javaLogo2.src} alt="Java" />
                                         <h5>Java</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={spring3} alt="Spring" />
+                                        <img src={spring3.src} alt="Spring" />
                                         <h5>Spring</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={python} alt="Python" />
+                                        <img src={python.src} alt="Python" />
                                         <h5>Python</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={terraform} alt="Terraform" />
+                                        <img src={terraform.src} alt="Terraform" />
                                         <h5>Terraform</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={maven} alt="Maven" />
+                                        <img src={maven.src} alt="Maven" />
                                         <h5>Maven</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={git} alt="Git" />
+                                        <img src={git.src} alt="Git" />
                                         <h5>Git</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={jenkins} alt="Jenkins" />
+                                        <img src={jenkins.src} alt="Jenkins" />
                                         <h5>Jenkins</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={ec2Logo} alt="EC2" />
+                                        <img src={ec2Logo.src} alt="EC2" />
                                         <h5>EC2</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={lambda} alt="Lambda" />
+                                        <img src={lambda.src} alt="Lambda" />
                                         <h5>Lambda</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={s3} alt="S3" />
+                                        <img src={s3.src} alt="S3" />
                                         <h5>S3</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={route53} alt="Route53" />
+                                        <img src={route53.src} alt="Route53" />
                                         <h5>Route53</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={bash} alt="Bash" />
+                                        <img src={bash.src} alt="Bash" />
                                         <h5>Bash</h5>
                                     </div>
                                 </Carousel>
@@ -142,19 +142,19 @@ function Skills() {
                             <h4 id='skill-slider-skill-label'>Advanced</h4>
                                 <Carousel responsive={responsive} infinite={true} className="skill-slider" >
                                     <div className="item">
-                                        <img src={cLogo} alt="C" />
+                                        <img src={cLogo.src} alt="C" />
                                         <h5>C</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={typescriptLogo} alt="Typescript" />
+                                        <img src={typescriptLogo.src} alt="Typescript" />
                                         <h5>Typescript</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={nodejsLogo} alt="Nodejs" />
+                                        <img src={nodejsLogo.src} alt="Nodejs" />
                                         <h5>Nodejs</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={elasticacheLogo} alt="ElastiCache" />
+                                        <img src={elasticacheLogo.src} alt="ElastiCache" />
                                         <h5>ElastiCache</h5>
                                     </div>
                                 </Carousel>
@@ -163,35 +163,35 @@ function Skills() {
                             <h4 id='skill-slider-skill-label'>Intermediate</h4>
                                 <Carousel responsive={responsive} infinite={true} className="skill-slider" >
                                     <div className="item">
-                                        <img src={sqlLogo} alt="SQL" />
+                                        <img src={sqlLogo.src} alt="SQL" />
                                         <h5>SQL</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={reactLogo} alt="React" />
+                                        <img src={reactLogo.src} alt="React" />
                                         <h5>React</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={jsLogo} alt="JavaScript" />
+                                        <img src={jsLogo.src} alt="JavaScript" />
                                         <h5>JavaScript</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={htmlLogo} alt="HTML5" />
+                                        <img src={htmlLogo.src} alt="HTML5" />
                                         <h5>HTML5</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={cssLogo} alt="CSS" />
+                                        <img src={cssLogo.src} alt="CSS" />
                                         <h5>CSS</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={dynatraceLogo} alt="DynaTrace" />
+                                        <img src={dynatraceLogo.src} alt="DynaTrace" />
                                         <h5>DynaTrace</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={iamLogo} alt="IAM" />
+                                        <img src={iamLogo.src} alt="IAM" />
                                         <h5>IAM</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={cloudformationLogo} alt="CloudFormation" />
+                                        <img src={cloudformationLogo.src} alt="CloudFormation" />
                                         <h5>CloudFormation</h5>
                                     </div>
                                 </Carousel>
@@ -200,11 +200,11 @@ function Skills() {
                             <h4 id='skill-slider-skill-label'>Novice</h4>
                                 <Carousel responsive={responsive} infinite={true} className="skill-slider" >
                                     <div className="item">
-                                        <img src={dockerLogo} alt="Docker" />
+                                        <img src={dockerLogo.src} alt="Docker" />
                                         <h5>Docker</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={angularLogo} alt="Angular" />
+                                        <img src={angularLogo.src} alt="Angular" />
                                         <h5>Angular</h5>
                                     </div>
                                 </Carousel>
@@ -213,13 +213,13 @@ function Skills() {
                             <h4 id='skill-slider-skill-label'>Certifications</h4>
                                 <Carousel responsive={certifications} infinite={true} className="skill-slider" >
                                     <div className="certItem">
-                                        <img src={saaLogo} alt="AWS Certified Solutions Architect Associate" />
+                                        <img src={saaLogo.src} alt="AWS Certified Solutions Architect Associate" />
                                     </div>
                                     <div className="certItem">
-                                        <img src={cPractitionerLogo3} alt="AWS Certified Cloud Practitioner" />
+                                        <img src={cPractitionerLogo3.src} alt="AWS Certified Cloud Practitioner" />
                                     </div>
                                     <div className="certItem">
-                                        <img src={terraformAssociate} alt="Hashicorp Terraform Associate" />
+                                        <img src={terraformAssociate.src} alt="Hashicorp Terraform Associate" />
                                     </div>
                                 </Carousel>
                             </Container>
@@ -227,8 +227,8 @@ function Skills() {
                       </Col>
                   </Row>
               </Container>
-              <img className="background-image-left" src={colorSharp} alt=""/>
-              <img className="background-image-right" src={colorSharp} alt=""/>
+              <img className="background-image-left" src={colorSharp.src} alt=""/>
+              <img className="background-image-right" src={colorSharp.src} alt=""/>
           </section>
       )
 }
