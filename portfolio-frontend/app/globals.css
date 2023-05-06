@@ -57,6 +57,10 @@ a:hover {
   text-decoration: none;
 }
 
+#home > div > div > div.col-xl-5.col-md-6.col-12 > img {
+  width: auto;
+  height: auto;
+}
 img {
   width: 100%;
   height: auto;

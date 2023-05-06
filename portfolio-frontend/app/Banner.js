@@ -47,7 +47,7 @@ function Banner() {
                         <p>A software engineer highly proficient in Java, Spring Boot, and Cloud services (particularly AWS - this site is hosted with Route53, S3, and CloudFront!). I am also fluent in Python, Bash, and have worked with many other languages and frameworks. Additionally, I have experience playing the role of DevOps and am highly familiar with Infrastructure as Code via Terraform.</p>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
-                        <Image src="/img/computer-icon.png" alt="Floating Computer" width={200} height={200} />
+                        <Image src="/img/computer-icon.png" alt="Floating Computer" width={512} height={512} />
                     </Col>
                 </Row>
             </Container>
