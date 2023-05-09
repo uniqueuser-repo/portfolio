@@ -1,28 +1,25 @@
-import React from 'react';
+'use client';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-class VisitorCounterClass extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visitorCount: 'Loading...'
-        }
-    }
+const VisitorCounterFunc = () => {
+  const [visitorCount, setVisitorCount] = useState('Loading...');
+  const router = useRouter();
 
-    componentDidMount() {
-        if (this.state.visitorCount === 'Loading...') {
-            axios.post('https://api.aorlowski.com/viewerCount_getAndIncrement')
-            .then((response) => {
-                this.setState({visitorCount: response.data})
-            })
-        }
+  useEffect(() => {
+    console.log(router);
+    console.log(router.pathname);
+    if (visitorCount === 'Loading...') {
+      axios
+        .post('https://api.aorlowski.com/viewerCount_getAndIncrement')
+        .then((response) => {
+          setVisitorCount(response.data);
+        });
     }
+  }, [router, visitorCount]);
 
-    render() {
-        return (
-            <p id="visitor_counter">Visitor Counter: {this.state.visitorCount}</p>
-        )
-    }
-}
+  return <p id="visitor_counter">Visitor Counter: {visitorCount}</p>;
+};
 
-export default VisitorCounterClass;
+export default VisitorCounterFunc;

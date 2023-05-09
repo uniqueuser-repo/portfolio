@@ -13,16 +13,17 @@ import {
 import Resume from './components/Resume';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import Link from "next/link";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Navbar></Navbar>
-      <Switch>
-        <Route path="/resume" component={Resume}/>
-        <Route path="/" component={App}/>
-      </Switch>
+        {/* <Route path="/resume" component={Resume}/>
+        <Route path="/" component={App}/> */}
+
+        <Link href="/resume"/>
+        <Link href="/"/>
       <Footer></Footer>
     </BrowserRouter>
   </React.StrictMode>

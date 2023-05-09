@@ -1,23 +1,28 @@
+'use client';
+
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {  useState, useEffect } from 'react';
+import navIcon1 from '../public/img/nav-icon1.svg'
+import navIcon2 from '../public/img/Octicons-mark-github.svg'
 import VisitorCounter from './VisitorCounter.js'
-import Image from 'next/image'
-
+import  { useRouter } from 'next/navigation';
 
 function NavBar() {
   const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
+
 
   const onUpdateActiveLink = (value) => {
       setActiveLink(value);
-
-      // if (value === 'resume') {
-      //   window.scrollTo(0, 0);
-      // } else {
-      //   history.push("/");
-      // }
+      if (value === 'resume') {
+        router.push("/resume");
+        window.scrollTo(0, 0);
+      } else {
+        router.push("/")
+      }
   }
 
   useEffect(() => {
@@ -50,8 +55,8 @@ function NavBar() {
           <VisitorCounter/>
           <span className="navbar-text"> 
             <div className="social-icon">
-                <a href="https://linkedin.com/in/andrew-orlowski-08a035175/" target="_blank" rel="noreferrer noopener"> <Image src="/img/nav-icon1.svg"  alt="Nav icon 1" width={200} height={200}/> </a>
-                <a href="https://github.com/uniqueuser-repo" target="_blank" rel="noreferrer noopener"><Image src="/img/Octicons-mark-github.svg" id="must-invert" title="GitHub" alt="GitHub" width={200} height={200}/> </a>
+                <a href="https://linkedin.com/in/andrew-orlowski-08a035175/" target="_blank" rel="noreferrer noopener"><img src={navIcon1} title="LinkedIn" alt="LinkedIn"/> </a>
+                <a href="https://github.com/uniqueuser-repo" target="_blank" rel="noreferrer noopener"><img src={navIcon2} id="must-invert" title="GitHub" alt="GitHub"/> </a>
             </div>
           </span>
         </Navbar.Collapse>
