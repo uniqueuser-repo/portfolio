@@ -8,8 +8,6 @@ const VisitorCounterFunc = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router);
-    console.log(router.pathname);
     if (visitorCount === 'Loading...') {
       axios
         .post('https://api.aorlowski.com/viewerCount_getAndIncrement')
@@ -19,7 +17,7 @@ const VisitorCounterFunc = () => {
     }
   }, [router, visitorCount]);
 
-  return <p id="visitor_counter">Visitor Counter: {visitorCount}</p>;
+  return <p title="This is the number of times all pages on my site have been visited." id="visitor_counter">Visit Counter: {visitorCount}</p>;
 };
 
 export default VisitorCounterFunc;

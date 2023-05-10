@@ -4,24 +4,25 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {  useState, useEffect } from 'react';
-import navIcon1 from '../public/img/nav-icon1.svg'
-import navIcon2 from '../public/img/Octicons-mark-github.svg'
 import VisitorCounter from './VisitorCounter.js'
 import  { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 function NavBar() {
-  const [activeLink, setActiveLink] = useState('home');
-  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const [activeLink, setActiveLink] = useState(pathname === "/" ? 'home' : pathname.substring(1));
+  const [scrolled, setScrolled] = useState(false);
 
 
   const onUpdateActiveLink = (value) => {
       setActiveLink(value);
       if (value === 'resume') {
         router.push("/resume");
-        window.scrollTo(0, 0);
-      } else {
-        router.push("/")
+      } else if (value === 'blog') {
+        router.push("/blog");
+      } else if (pathname === '/resume' || pathname === '/blog') {
+        router.push("/");
       }
   }
 
@@ -39,6 +40,20 @@ function NavBar() {
       return () => window.removeEventListener("scroll",  onScroll)
   })
   
+  let toDisplaySkills = 'block';
+  let toDisplayProjects = 'block';
+  let toDisplayResume = 'block';
+  let toDisplayBlog = 'block';
+  if (pathname == '/resume') {
+    toDisplayResume = 'none';
+    toDisplayProjects = 'none';
+    toDisplaySkills = 'none';
+  } else if (pathname == '/blog') {
+    toDisplayProjects = 'none';
+    toDisplaySkills = 'none';
+    toDisplayBlog = 'none';
+  }
+
   return (
     <Navbar bg="dark" expand="lg" className={scrolled ? "scrolled":""}>
       <Container>
@@ -48,15 +63,16 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#home" className={activeLink === 'home' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
-            <Nav.Link href="#skills" className={activeLink === 'skills' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
-            <Nav.Link href="#projects" className={activeLink === 'projects' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
-            <Nav.Link href="#resume" className={activeLink === 'resume' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('resume')}>Resume</Nav.Link>
+            <Nav.Link href="#skills" className={activeLink === 'skills' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplaySkills}} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
+            <Nav.Link href="#projects" className={activeLink === 'projects' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayProjects}} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
+            <Nav.Link href="#resume" className={activeLink === 'resume' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayResume}} onClick={() => onUpdateActiveLink('resume')}>Resume</Nav.Link>
+            <Nav.Link href="#blog" className={activeLink === 'blog' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayBlog}} onClick={() => onUpdateActiveLink('blog')}>Blog</Nav.Link>
           </Nav>
           <VisitorCounter/>
           <span className="navbar-text"> 
             <div className="social-icon">
-                <a href="https://linkedin.com/in/andrew-orlowski-08a035175/" target="_blank" rel="noreferrer noopener"><img src={navIcon1} title="LinkedIn" alt="LinkedIn"/> </a>
-                <a href="https://github.com/uniqueuser-repo" target="_blank" rel="noreferrer noopener"><img src={navIcon2} id="must-invert" title="GitHub" alt="GitHub"/> </a>
+                <a href="https://linkedin.com/in/andrew-orlowski-08a035175/" target="_blank" rel="noreferrer noopener"><img src='/img/nav-icon1.svg' title="LinkedIn" alt="LinkedIn"/> </a>
+                <a href="https://github.com/uniqueuser-repo" target="_blank" rel="noreferrer noopener"><img src='/img/Octicons-mark-github.svg' id="must-invert" title="GitHub" alt="GitHub"/> </a>
             </div>
           </span>
         </Navbar.Collapse>
