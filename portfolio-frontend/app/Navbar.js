@@ -52,6 +52,9 @@ function NavBar() {
     toDisplayProjects = 'none';
     toDisplaySkills = 'none';
     toDisplayBlog = 'none';
+  } else if (pathname.startsWith("/blog/")) {
+    toDisplayProjects = 'none';
+    toDisplaySkills = 'none';
   }
 
   return (

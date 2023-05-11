@@ -3,8 +3,8 @@ import Footer from "../Footer";
 import getPostMetadata from "./getPostMetadata";
 import PostPreview from "./postPreview";
 
-function Blog() {
-  const postMetadata = getPostMetadata();
+async function Blog() {
+  const postMetadata = await getPostMetadata();
   const postPreviews = postMetadata.map((post) => (
     <PostPreview key={post.slug} {...post} />
   ));

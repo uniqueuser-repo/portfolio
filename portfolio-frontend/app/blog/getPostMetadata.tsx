@@ -1,28 +1,27 @@
-import fs from "fs";
-import matter from "gray-matter";
 import { PostMetadata } from "./PostMetadata";
-import { folder } from "./shared"
+import AWS from 'aws-sdk';
+import { Result } from "postcss";
 
-const getPostMetadata = (): PostMetadata[] => {
-  console.log(process.cwd())
+AWS.config.update({
+  region: process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 
-
-  const files = fs.readdirSync(folder);
-  const markdownPosts = files.filter((file) => file.endsWith(".md"));
-
-  // Get gray-matter data from each file.
-  const posts = markdownPosts.map((fileName) => {
-    const fileContents = fs.readFileSync(`${folder}${fileName}`, "utf8");
-    const matterResult = matter(fileContents);
-    return {
-      title: matterResult.data.title,
-      date: matterResult.data.date,
-      subtitle: matterResult.data.subtitle,
-      slug: fileName.replace(".md", ""),
-    };
-  });
-
-  return posts;
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const params = {
+  TableName: 'blog',
+  Key: { id: 'metadata' }
 };
+
+const getPostMetadata = async (): Promise<PostMetadata[]> => {
+  const result = await dynamoDB.get(params).promise();
+  const resultPosts = result.Item?.blog_posts
+  return resultPosts;
+};
+
+const getPostData = async(): Promise<String> => {
+  return "";
+}
 
 export default getPostMetadata;
