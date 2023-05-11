@@ -1,19 +1,20 @@
 import NavBar from "../Navbar";
 import Footer from "../Footer";
+import getPostMetadata from "./getPostMetadata";
+import PostPreview from "./postPreview";
 
 function Blog() {
+  const postMetadata = getPostMetadata();
+  const postPreviews = postMetadata.map((post) => (
+    <PostPreview key={post.slug} {...post} />
+  ));
+
   return (
     <>
       <NavBar />
-      <p id="resume-pdf" style={{ display: 'flex', justifyContent: 'center' }}>
-        <iframe
-          title="Andrew Orlowski Resume"
-          style={{ width: '1000px', height: '1135px' }}
-          src={'Andrew_Orlowski_Resume.pdf#toolbar=0&navpanes=0'}
-        />
-      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 md:mt-32 max-w-screen-xl mx-auto mb-8 md:mb-32">{postPreviews}</div>
       <Footer />
     </>
-  );
+);
 }
 export default Blog;

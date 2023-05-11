@@ -2,7 +2,10 @@
 const nextConfig = {
     sassOptions: {
         includePaths: ['.'],
-      },
+    },
+    images: {
+      unoptimized: true,
+    },
 }
 
 

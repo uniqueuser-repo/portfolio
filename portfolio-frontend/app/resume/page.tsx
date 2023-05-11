@@ -1,7 +1,7 @@
 import NavBar from "../Navbar";
 import Footer from "../Footer";
 
-function Resume(): JSX.Element {
+function Resume() {
   return (
     <>
       <NavBar />
