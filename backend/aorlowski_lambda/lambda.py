@@ -28,7 +28,8 @@ def lambda_handler(event, context):
     whitelisted_origins = {
         'http://localhost:3000': 'http://localhost:3000',
         'https://www.aorlowski.com': 'https://www.aorlowski.com',
-        'https://aorlowski.com': 'https://aorlowski.com'
+        'https://aorlowski.com': 'https://aorlowski.com',
+        'https://old.aorlowski.com': 'https://old.aorlowski.com'
     }
     
     print('event is ' + str(event))
