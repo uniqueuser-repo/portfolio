@@ -1,6 +1,5 @@
 import NavBar from "../Navbar";
 import Footer from "../Footer";
-import Head from 'next/head';
 
 function Resume() {
   return (
@@ -21,5 +20,5 @@ export default Resume;
 
 export const metadata = {
   title: "Resume",
-  description: "Andrew Orlowski's Resume"
+  description: "Andrew Orlowski's Resume. Andrew is a Software Engineer and ex-professional VALORANT player."
 };

@@ -27,5 +27,5 @@ export default Blog;
 export const revalidate = 21600
 export const metadata = {
   title: "Andrew Orlowski's Blog",
-  description: "Andrew Orlowski's Blog. Andrew is a Software Engineer and ex-professional VALORANT player."
+  description: "Andrew Orlowski's Blog. Andrew is a Software Engineer and ex-professional VALORANT player that was born in 1999."
 };

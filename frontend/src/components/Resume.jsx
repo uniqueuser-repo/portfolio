@@ -1,4 +1,4 @@
-import AndyResume from '../public/Andrew_Orlowski_Resume.pdf';
+import AndyResume from '../assets/Andrew_Orlowski_Resume.pdf';
 
 function Resume() {
     return (

@@ -1,5 +1,5 @@
-# START CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
-# START CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
+# START CLOUDFRONT DISTRIBUTION FOR www.aorlowski.com, aorlowski.com
+# START CLOUDFRONT DISTRIBUTION FOR www.aorlowski.com, aorlowski.com
 resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
     origin {
         domain_name = aws_s3_bucket.root-domain.bucket_regional_domain_name
@@ -13,8 +13,9 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
     default_root_object = "index.html"
 
     aliases = [
-        local.all_subdomains_str,
-        local.root_domain_str
+        local.domain_str,
+        local.root_domain_str,
+        local.local.old_domain_str
     ]
     
 

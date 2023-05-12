@@ -1,6 +1,6 @@
-# START ROOT DOMAIN BUCKET
-# START ROOT DOMAIN BUCKET
-resource "aws_s3_bucket" "root-domain" {
+# START old.aorlowski.com BUCKET
+# START old.aorlowski.com BUCKET
+resource "aws_s3_bucket" "old-aorlowski-domain" {
     bucket = local.root_domain_str
     policy = jsonencode(
         {
@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "root-domain" {
                     Action    = "s3:GetObject"
                     Effect    = "Allow"
                     Principal = "*"
-                    Resource  = "arn:aws:s3:::aorlowski.com/*"
+                    Resource  = "arn:aws:s3:::old.aorlowski.com/*"
                     Sid       = "PublicReadGetObject"
                 },
             ]
@@ -21,8 +21,8 @@ resource "aws_s3_bucket" "root-domain" {
 
 }
 
-resource "aws_s3_bucket_acl" "root-domain-bucket-acl" {
-    bucket = aws_s3_bucket.root-domain.id
+resource "aws_s3_bucket_acl" "old-aorlowski-domain-bucket-acl" {
+    bucket = aws_s3_bucket.old-aorlowski-domain.id
     access_control_policy {
       grant {
           grantee {
@@ -39,7 +39,7 @@ resource "aws_s3_bucket_acl" "root-domain-bucket-acl" {
 }
 
 resource "aws_s3_bucket_website_configuration" "root-domain-bucket-website-config" {
-    bucket = aws_s3_bucket.root-domain.id
+    bucket = aws_s3_bucket.old-aorlowski-domain
 
     index_document {
       suffix = "index.html"
@@ -49,7 +49,7 @@ resource "aws_s3_bucket_website_configuration" "root-domain-bucket-website-confi
 resource "aws_s3_bucket_object" "upload_build" {
     for_each = fileset(local.build_dir, "**")
 
-    bucket = aws_s3_bucket.root-domain.bucket
+    bucket = aws_s3_bucket.old-aorlowski-domain.bucket
     key = each.value
     source = "${local.build_dir}${each.value}"
 
@@ -60,57 +60,6 @@ resource "aws_s3_bucket_object" "upload_build" {
 }
 # END ROOT DOMAIN BUCKET
 # END ROOT DOMAIN BUCKET
-
-
-# START SUBDOMAIN (WWW.) BUCKET
-# START SUBDOMAIN (WWW.) BUCKET
-resource "aws_s3_bucket" "subdomain-www" {
-    bucket = local.subdomain_str
-    policy = jsonencode(
-        {
-            Statement = [
-                {
-                    Action    = "s3:GetObject"
-                    Effect    = "Allow"
-                    Principal = "*"
-                    Resource  = "arn:aws:s3:::www.aorlowski.com/*"
-                    Sid       = "PublicReadGetObject"
-                },
-            ]
-            Version   = "2012-10-17"
-        }
-    )
-
-    force_destroy = true
-}
-
-resource "aws_s3_bucket_acl" "subdomain-www-bucket-acl" {
-    bucket = aws_s3_bucket.subdomain-www.id
-    access_control_policy {
-      grant {
-          grantee {
-              id = data.aws_canonical_user_id.current_user.id
-              type = "CanonicalUser"
-          }
-          permission = "FULL_CONTROL"
-      }
-
-      owner {
-          id = data.aws_canonical_user_id.current_user.id
-      }
-    }
-}
-
-resource "aws_s3_bucket_website_configuration" "subdomain-www-bucket-website-config" {
-    bucket = aws_s3_bucket.subdomain-www.id
-
-    redirect_all_requests_to {
-      host_name = local.subdomain_str
-      protocol = "http"
-    }
-}
-# END SUBDOMAIN (WWW.) BUCKET
-# END SUBDOMAIN (WWW.) BUCKET
 
 # START CLOUDFRONT LOGS BUCKET
 # START CLOUDFRONT LOGS BUCKET

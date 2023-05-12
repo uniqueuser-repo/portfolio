@@ -1,28 +1,26 @@
-'use client';
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {  useState, useEffect } from 'react';
-import navIcon1 from '../public/img/nav-icon1.svg'
-import navIcon2 from '../public/img/Octicons-mark-github.svg'
+import navIcon1 from '../assets/img/nav-icon1.svg'
+import navIcon2 from '../assets/img/Octicons-mark-github.svg'
 import VisitorCounter from './VisitorCounter.js'
-import  { useRouter } from 'next/router';
+import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router";
 
 function NavBar() {
   const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
-
+  const history = useHistory();
 
   const onUpdateActiveLink = (value) => {
       setActiveLink(value);
+
       if (value === 'resume') {
-        const router = useRouter();
-        router.push("/resume");
+        history.push("/resume");
         window.scrollTo(0, 0);
       } else {
-        const router = useRouter();
-        router.push("/");
+        history.push("/");
       }
   }
 

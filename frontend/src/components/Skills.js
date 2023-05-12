@@ -1,37 +1,36 @@
-"use client"
 import {Container, Row, Col} from 'react-bootstrap';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import javaLogo2 from "../public/img/java-Logo-2.png";
-import spring3 from "../public/img/spring3.png";
-import python from "../public/img/python.png";
-import terraform from "../public/img/terraform.png";
-import maven from "../public/img/maven.png";
-import bash from '../public/img/bash.png';
-import git from '../public/img/git.png';
-import jenkins from '../public/img/jenkins.png';
-import lambda from '../public/img/lambda.png';
-import s3 from '../public/img/S3.png';
-import route53 from '../public/img/route53.svg';
-import cLogo from '../public/img/c.png';
-import nodejsLogo from '../public/img/nodejs.png';
-import elasticacheLogo from '../public/img/ElastiCache.png';
-import typescriptLogo from '../public/img/typescript.webp';
-import ec2Logo from '../public/img/ec2.svg';
-import sqlLogo from '../public/img/sql.png';
-import reactLogo from '../public/img/react.png';
-import jsLogo from '../public/img/js.png';
-import htmlLogo from '../public/img/html5.png';
-import cssLogo from '../public/img/css.webp';
-import dynatraceLogo from '../public/img/dynaLogo.png';
-import iamLogo from '../public/img/iam.svg';
-import cloudformationLogo from '../public/img/cloudformation.png';
-import dockerLogo from '../public/img/docker.png';
-import angularLogo from '../public/img/angular.webp';
-import colorSharp from "../public/img/color-sharp.png"
-import saaLogo from "../public/img/solutions_architect_associate.png";
-import cPractitionerLogo3 from "../public/img/cloud_practitioner3.png";
-import terraformAssociate from "../public/img/terraform_associate.png"
+import javaLogo2 from "../assets/img/java-Logo-2.png";
+import spring3 from "../assets/img/spring3.png";
+import python from "../assets/img/python.png";
+import terraform from "../assets/img/terraform.png";
+import maven from "../assets/img/maven.png";
+import bash from '../assets/img/bash.png';
+import git from '../assets/img/git.png';
+import jenkins from '../assets/img/jenkins.png';
+import lambda from '../assets/img/lambda.png';
+import s3 from '../assets/img/S3.png';
+import route53 from '../assets/img/route53.svg';
+import cLogo from '../assets/img/c.png';
+import nodejsLogo from '../assets/img/nodejs.png';
+import elasticacheLogo from '../assets/img/ElastiCache.png';
+import typescriptLogo from '../assets/img/typescript.webp';
+import ec2Logo from '../assets/img/ec2.svg';
+import sqlLogo from '../assets/img/sql.png';
+import reactLogo from '../assets/img/react.png';
+import jsLogo from '../assets/img/js.png';
+import htmlLogo from '../assets/img/html5.png';
+import cssLogo from '../assets/img/css.webp';
+import dynatraceLogo from '../assets/img/dynaLogo.png';
+import iamLogo from '../assets/img/iam.svg';
+import cloudformationLogo from '../assets/img/cloudformation.png';
+import dockerLogo from '../assets/img/docker.png';
+import angularLogo from '../assets/img/angular.webp';
+import colorSharp from "../assets/img/color-sharp.png"
+import saaLogo from "../assets/img/solutions_architect_associate.png";
+import cPractitionerLogo3 from "../assets/img/cloud_practitioner3.png";
+import terraformAssociate from "../assets/img/terraform_associate.png"
 
 
 

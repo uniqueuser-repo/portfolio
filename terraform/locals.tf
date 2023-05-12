@@ -1,7 +1,11 @@
 locals {
     root_domain_str = "aorlowski.com"
     subdomain_str = "www.aorlowski.com"
-    all_subdomains_str = "*.aorlowski.com"
+    domain_str = "aorlowski.com"
+    old_domain_str = "old.aorlowski.com"
+    all_subdomain_str = "*.aorlowski.com"
+    vercel_domain_str = "portfolio-six-pied-22.vercel.app"
+    vercel_dns_ip_str = "76.76.21.21"
 
     # When we upload the build to S3, we need to make sure each individual Object uploaded has the correct content-type associated.
     # If not specified, all files are uploaded as "application/octet-stream", which is definitely wrong and will cause problems.
