@@ -3,6 +3,7 @@ import Footer from "../Footer";
 import getPostMetadata from "./getPostMetadata";
 import PostPreview from "./postPreview";
 
+
 async function Blog() {
   const postMetadata = await getPostMetadata();
   const postPreviews = postMetadata.map((post) => (
@@ -18,3 +19,4 @@ async function Blog() {
 );
 }
 export default Blog;
+export const revalidate = 21600

@@ -1,29 +1,20 @@
-import fs from "fs";
 import Markdown from "markdown-to-jsx";
 import matter from "gray-matter";
+import getPostData from "../getPostData";
 import getPostMetadata from "../getPostMetadata";
-import { folder } from "../shared"
 import NavBar from "../../Navbar";
 import Footer from "../../Footer";
 
 
-const getPostContent = (slug: string) => {
-  const file = `${folder}${slug}.md`;
-  const content = fs.readFileSync(file, "utf8");
-  const matterResult = matter(content);
+const getPostContent = async (slug: string) => {
+  const content2 = await getPostData(slug);
+  const matterResult = matter(content2);
   return matterResult;
 };
 
-export const generateStaticParams = async () => {
-  const posts = await getPostMetadata();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-};
-
-const PostPage = (props: any) => {
+const PostPage = async (props: any) => {
   const slug = props.params.slug;
-  const post = getPostContent(slug);
+  const post = await getPostContent(slug);
   return (
     <>
       <NavBar/>

@@ -1,6 +1,5 @@
 import { PostMetadata } from "./PostMetadata";
 import AWS from 'aws-sdk';
-import { Result } from "postcss";
 
 AWS.config.update({
   region: process.env.AWS_REGION,
@@ -9,19 +8,15 @@ AWS.config.update({
 });
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-const params = {
+const metadata_params = {
   TableName: 'blog',
   Key: { id: 'metadata' }
 };
 
 const getPostMetadata = async (): Promise<PostMetadata[]> => {
-  const result = await dynamoDB.get(params).promise();
-  const resultPosts = result.Item?.blog_posts
+  const result = await dynamoDB.get(metadata_params).promise();
+  const resultPosts = result.Item?.blog_posts;
   return resultPosts;
 };
-
-const getPostData = async(): Promise<String> => {
-  return "";
-}
 
 export default getPostMetadata;
