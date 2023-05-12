@@ -16,12 +16,13 @@ function NavBar() {
 
 
   const onUpdateActiveLink = (value) => {
+    console.log("pathname is " + pathname);
       setActiveLink(value);
       if (value === 'resume') {
         router.push("/resume");
       } else if (value === 'blog') {
         router.push("/blog");
-      } else if (pathname === '/resume' || pathname === '/blog') {
+      } else if (pathname === '/resume' || pathname.startsWith('/blog')) {
         router.push("/");
       }
   }

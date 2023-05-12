@@ -1,14 +1,13 @@
 import Markdown from "markdown-to-jsx";
 import matter from "gray-matter";
 import getPostData from "../getPostData";
-import getPostMetadata from "../getPostMetadata";
 import NavBar from "../../Navbar";
 import Footer from "../../Footer";
 
 
 const getPostContent = async (slug: string) => {
-  const content2 = await getPostData(slug);
-  const matterResult = matter(content2);
+  const content = await getPostData(slug);
+  const matterResult = matter(content);
   return matterResult;
 };
 
@@ -23,7 +22,6 @@ const PostPage = async (props: any) => {
           <h1 className="text-2xl text-slate-200 ">{post.data.title}</h1>
           <p className="text-slate-400 mt-2">{post.data.date}</p>
         </div>
-
         <article className="prose dark:prose-invert mx-auto mb-8 md:mb-24">
           <Markdown>{post.content}</Markdown>
         </article>
@@ -34,3 +32,4 @@ const PostPage = async (props: any) => {
 };
 
 export default PostPage;
+export const revalidate = 86400 // Revalidate every 24h
