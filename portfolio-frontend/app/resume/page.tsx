@@ -1,5 +1,6 @@
 import NavBar from "../Navbar";
 import Footer from "../Footer";
+import Head from 'next/head';
 
 function Resume() {
   return (
@@ -17,3 +18,8 @@ function Resume() {
   );
 }
 export default Resume;
+
+export const metadata = {
+  title: "Resume",
+  description: "Andrew Orlowski's Resume"
+};

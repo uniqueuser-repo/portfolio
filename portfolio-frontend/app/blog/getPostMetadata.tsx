@@ -13,10 +13,10 @@ const metadata_params = {
   Key: { id: 'metadata' }
 };
 
-const getPostMetadata = async (): Promise<PostMetadata[]> => {
+const getAllPostMetadata = async (): Promise<PostMetadata[]> => {
   const result = await dynamoDB.get(metadata_params).promise();
   const resultPosts = result.Item?.blog_posts;
   return resultPosts;
 };
 
-export default getPostMetadata;
+export default getAllPostMetadata;

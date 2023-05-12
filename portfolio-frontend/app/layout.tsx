@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Andrew\'s Portfolio',
-  description: 'Developed by Andrew Orlowski',
+  title: 'Andrew Orlowski',
+  description: 'Andrew Orlowski\'s website. Andrew Orlowski is a Software Engineer and ex-professional VALORANT player. Andrew Orlowski was born in 1999.',
 }
 
 export default function RootLayout({

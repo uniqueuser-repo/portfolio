@@ -1,12 +1,17 @@
 import NavBar from "../Navbar";
 import Footer from "../Footer";
-import getPostMetadata from "./getPostMetadata";
+import getAllPostMetadata from "./getPostMetadata";
 import PostPreview from "./postPreview";
+import { PostMetadata } from "./PostMetadata";
 
 
 async function Blog() {
-  const postMetadata = await getPostMetadata();
-  const postPreviews = postMetadata.map((post) => (
+  const postMetadata = await getAllPostMetadata();
+  const sortedPostMetadata = postMetadata.sort((a: PostMetadata, b: PostMetadata) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
+  const postPreviews = sortedPostMetadata.map((post) => (
     <PostPreview key={post.slug} {...post} />
   ));
 
@@ -20,3 +25,7 @@ async function Blog() {
 }
 export default Blog;
 export const revalidate = 21600
+export const metadata = {
+  title: "Andrew Orlowski's Blog",
+  description: "Andrew Orlowski's Blog. Andrew is a Software Engineer and ex-professional VALORANT player."
+};

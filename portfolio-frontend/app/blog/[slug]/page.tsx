@@ -1,11 +1,14 @@
 import Markdown from "markdown-to-jsx";
 import matter from "gray-matter";
 import getPostData from "../getPostData";
+import getAllPostMetadata from "../getPostMetadata";
 import NavBar from "../../Navbar";
 import Footer from "../../Footer";
+import { PostMetadata } from "../PostMetadata";
 
 
 const getPostContent = async (slug: string) => {
+  console.log("slug is " + slug);
   const content = await getPostData(slug);
   const matterResult = matter(content);
   return matterResult;
@@ -33,3 +36,16 @@ const PostPage = async (props: any) => {
 
 export default PostPage;
 export const revalidate = 86400 // Revalidate every 24h
+export async function generateMetadata({ params }: { params: any }) {
+  const slug: string = params.slug;
+  const metadata: PostMetadata[] = await getAllPostMetadata();
+  const matchingMetadata: PostMetadata | undefined = metadata.find(post => post.slug === slug);
+
+  if (matchingMetadata === undefined) {
+    throw Error("No matching metadata for " + slug);
+  }
+
+  return {
+    title: matchingMetadata.title
+  };
+}
