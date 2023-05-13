@@ -51,8 +51,8 @@ function NavBar() {
   }
 
   return (
-    <Navbar bg="dark" expand="lg" className={scrolled ? "scrolled":""}>
-      <Container>
+    <Navbar bg="dark" expand="lg" className={scrolled ? "scrolled" : ""}>
+      <Container className="">
         <Navbar.Toggle aria-controls="basic-navbar-nav"> 
             <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
