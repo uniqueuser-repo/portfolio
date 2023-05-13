@@ -20,5 +20,5 @@ export default Resume;
 
 export const metadata = {
   title: "Resume",
-  description: "Andrew Orlowski's Resume. Andrew is a Software Engineer and ex-professional VALORANT player."
+  description: "Andrew Orlowski's Resume. Andrew is a life-long Software Engineer and ex-professional VALORANT player."
 };
