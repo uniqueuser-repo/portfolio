@@ -2,6 +2,7 @@ locals {
     root_domain_str = "aorlowski.com"
     subdomain_str = "www.aorlowski.com"
     domain_str = "aorlowski.com"
+    blog_table_name = "blog"
     images_domain_str = "images.aorlowski.com"
     old_domain_str = "old.aorlowski.com"
     all_subdomain_str = "*.aorlowski.com"

@@ -56,7 +56,7 @@ resource "aws_dynamodb_table_item" "viewer_count_statistic" {
 # START DYNAMODB FOR BLOG
 # START DYNAMODB FOR BLOG
 resource "aws_dynamodb_table" "blog_table" {
-  name = "blog"
+  name = local.blog_table_name
   provider = aws.east-1
 
   billing_mode = "PAY_PER_REQUEST"
@@ -86,25 +86,11 @@ resource "aws_dynamodb_table" "blog_table" {
   }
 }
 
-
-# INSERT metadata record
-resource "aws_dynamodb_table_item" "metadata_record" {
-    provider = aws.east-1
-    table_name = aws_dynamodb_table.blog_table.name
-    hash_key = aws_dynamodb_table.blog_table.hash_key
-
-    item = <<ITEM
-    {
-        "id": {"S": "metadata"},
-        "blog_posts": {"L": []}
-    }
-    ITEM
-
-    lifecycle {
-        ignore_changes = [
-          item
-        ]
-    }
+# INSERT blog data
+resource "null_resource" "insert_blog_data" {
+  provisioner "local-exec" {
+    command = "python ./util/insert_blog_data.py"
+  }
 }
 
 # END DYNAMODB FOR BLOG
