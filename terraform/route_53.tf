@@ -19,12 +19,12 @@ resource "aws_route53_record" "old_aorlowski_cloudfront_record" {
 resource "aws_route53_record" "images_aorlowski_cloudfront_record" {
     # I don't want Terraform to manage the hosted zone, so I will leave this hard coded.
     zone_id = local.hosted_zone_id
-    name = local.old_domain_str
+    name = local.images_domain_str
     type = "A"
 
     alias {
-        name = aws_cloudfront_distribution.aorlowski_s3_distribution.domain_name
-        zone_id = aws_cloudfront_distribution.aorlowski_s3_distribution.hosted_zone_id
+        name = aws_cloudfront_distribution.images_s3_distribution.domain_name
+        zone_id = aws_cloudfront_distribution.images_s3_distribution.hosted_zone_id
         evaluate_target_health = false
     }
 
@@ -60,8 +60,6 @@ resource "aws_route53_record" "wwww_aorlowski_cloudfront_record" {
     allow_overwrite = true
 }
 # End Route 53 Record for www.aorlowski.com to have an CNAME Record to Vercel
-
-
 
 # Start Route 53 Record for aorlowski.com to utilize certificate for HTTPS
 resource "aws_route53_record" "certificate_record" {

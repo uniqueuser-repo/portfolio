@@ -91,6 +91,8 @@ resource "null_resource" "insert_blog_data" {
   provisioner "local-exec" {
     command = "python ./util/insert_blog_data.py"
   }
+
+  depends_on = [ aws_dynamodb_table.blog_table ]
 }
 
 # END DYNAMODB FOR BLOG

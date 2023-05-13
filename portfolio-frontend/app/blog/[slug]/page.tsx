@@ -25,7 +25,7 @@ const PostPage = async (props: any) => {
           <h1 className="text-2xl text-slate-200 ">{post.data.title}</h1>
           <p className="text-slate-400 mt-2">{post.data.date}</p>
         </div>
-        <article className="prose dark:prose-invert mx-auto mb-8 md:mb-24">
+        <article className="prose prose-invert mx-auto mb-8 md:mb-24">
           <Markdown>{post.content}</Markdown>
         </article>
       </div>
