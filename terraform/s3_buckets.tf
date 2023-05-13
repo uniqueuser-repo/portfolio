@@ -1,45 +1,42 @@
 # START old.aorlowski.com BUCKET
 # START old.aorlowski.com BUCKET
 resource "aws_s3_bucket" "old-aorlowski-domain" {
-    bucket = local.root_domain_str
-    policy = jsonencode(
-        {
-            Statement = [
-                {
-                    Action    = "s3:GetObject"
-                    Effect    = "Allow"
-                    Principal = "*"
-                    Resource  = "arn:aws:s3:::old.aorlowski.com/*"
-                    Sid       = "PublicReadGetObject"
-                },
-            ]
-            Version   = "2012-10-17"
-        }
-    )
-
+    bucket = local.old_domain_str
     force_destroy = true
-
 }
 
-resource "aws_s3_bucket_acl" "old-aorlowski-domain-bucket-acl" {
-    bucket = aws_s3_bucket.old-aorlowski-domain.id
-    access_control_policy {
-      grant {
-          grantee {
-              id = data.aws_canonical_user_id.current_user.id
-              type = "CanonicalUser"
-          }
-          permission = "FULL_CONTROL"
-      }
+resource "aws_s3_bucket_policy" "old-aorlowski-domain-policy" {
+  bucket = aws_s3_bucket.old-aorlowski-domain.id
 
-      owner {
-          id = data.aws_canonical_user_id.current_user.id
-      }
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::${aws_s3_bucket.old-aorlowski-domain.id}/*"
     }
+  ]
+}
+EOF
+
+    depends_on = [ aws_s3_bucket_public_access_block.public_old_aorlowski_bucket ]
 }
 
-resource "aws_s3_bucket_website_configuration" "root-domain-bucket-website-config" {
-    bucket = aws_s3_bucket.old-aorlowski-domain
+resource "aws_s3_bucket_public_access_block" "public_old_aorlowski_bucket" {
+  bucket = aws_s3_bucket.old-aorlowski-domain.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_website_configuration" "old-domain-bucket-website-config" {
+    bucket = aws_s3_bucket.old-aorlowski-domain.bucket
 
     index_document {
       suffix = "index.html"
@@ -58,15 +55,49 @@ resource "aws_s3_bucket_object" "upload_build" {
 
     etag = filemd5("${local.build_dir}${each.value}")
 }
-# END ROOT DOMAIN BUCKET
-# END ROOT DOMAIN BUCKET
+# END old.aorlowski.com BUCKET
+# END old.aorlowski.com BUCKET
 
-# START CLOUDFRONT LOGS BUCKET
-# START CLOUDFRONT LOGS BUCKET
-resource "aws_s3_bucket" "aorlowski_cloudwatch" {
-    bucket = "aorlowski-cloudwatch"
-
+# START images.aorlowski.com BUCKET
+resource "aws_s3_bucket" "images-aorlowski-com-bucket" {
+    bucket = local.images_domain_str
     force_destroy = true
 }
-# END CLOUDFRONT LOGS BUCKET
-# END CLOUDFRONT LOGS BUCKET
+
+#
+resource "aws_s3_bucket_policy" "images-aorlowski-domain-policy" {
+  bucket = aws_s3_bucket.images-aorlowski-com-bucket.id
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Id": "ExamplePolicy",
+    "Statement": [
+      {
+        "Sid": "ExampleStatement",
+        "Effect": "Allow",
+        "Principal": {
+          "CanonicalUser": "${aws_cloudfront_origin_access_identity.oai_for_image_aorlowski_com.s3_canonical_user_id}"
+        },
+        "Action": "s3:GetObject",
+        "Resource": "${aws_s3_bucket.images-aorlowski-com-bucket.arn}/*"
+      }
+    ]
+  })
+
+}
+
+
+# Upload images to S3 bucket
+resource "aws_s3_bucket_object" "upload_images" {
+    for_each = fileset(local.images_dir, "**")
+
+    bucket = aws_s3_bucket.images-aorlowski-com-bucket.bucket
+    key = each.value
+    source = "${local.images_dir}${each.value}"
+
+    # Determine the content type by getting the extension of the file and searching dor it in the map
+    content_type = lookup(tomap(local.mime_types), element(split(".", each.value), length(split(".", each.value)) - 1))
+
+    etag = filemd5("${local.images_dir}${each.value}")
+}
+# END images.aorlowski.com BUCKET

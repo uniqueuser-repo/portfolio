@@ -9,7 +9,6 @@ import  { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 function NavBar() {
-  const router = useRouter();
   const pathname = usePathname();
   const [activeLink, setActiveLink] = useState(pathname === "/" ? 'home' : pathname.substring(1));
   const [scrolled, setScrolled] = useState(false);
@@ -17,14 +16,7 @@ function NavBar() {
 
   const onUpdateActiveLink = (value) => {
     console.log("pathname is " + pathname);
-      setActiveLink(value);
-      if (value === 'resume') {
-        router.push("/resume");
-      } else if (value === 'blog') {
-        router.push("/blog");
-      } else if (pathname === '/resume' || pathname.startsWith('/blog')) {
-        router.push("/");
-      }
+    setActiveLink(value);
   }
 
   useEffect(() => {
@@ -66,11 +58,12 @@ function NavBar() {
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home" className={activeLink === 'home' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
+            <Nav.Link href="/" className={activeLink === 'home' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
             <Nav.Link href="#skills" className={activeLink === 'skills' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplaySkills}} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
             <Nav.Link href="#projects" className={activeLink === 'projects' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayProjects}} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
-            <Nav.Link href="#resume" className={activeLink === 'resume' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayResume}} onClick={() => onUpdateActiveLink('resume')}>Resume</Nav.Link>
-            <Nav.Link href="#blog" className={activeLink === 'blog' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayBlog}} onClick={() => onUpdateActiveLink('blog')}>Blog</Nav.Link>
+            <Nav.Link href="/resume" className={activeLink === 'resume' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayResume}} onClick={() => onUpdateActiveLink('resume')}>Resume</Nav.Link>
+            <Nav.Link href="/blog" className={activeLink === 'blog' ?  'active navbar-link' : 'navbar-link'} style={{display: toDisplayBlog}} onClick={() => onUpdateActiveLink('blog')}>Blog</Nav.Link>
+            <Nav.Link href="https://old.aorlowski.com" className={activeLink === 'aorlowski' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('aorlowski')}>Old Site</Nav.Link>
           </Nav>
           <VisitorCounter/>
           <span className="navbar-text"> 

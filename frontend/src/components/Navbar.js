@@ -50,6 +50,7 @@ function NavBar() {
             <Nav.Link href="#skills" className={activeLink === 'skills' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
             <Nav.Link href="#projects" className={activeLink === 'projects' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
             <Nav.Link href="#resume" className={activeLink === 'resume' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('resume')}>Resume</Nav.Link>
+            <Nav.Link href="https://aorlowski.com" className={activeLink === 'aorlowski' ?  'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('aorlowski')}>Go Back</Nav.Link>
           </Nav>
           <VisitorCounter/>
           <span className="navbar-text"> 

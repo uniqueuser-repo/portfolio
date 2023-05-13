@@ -29,6 +29,14 @@ To use this, your domain must be hosted on Route53 and you must use Vercel to de
 
 If you choose to delete some of the domain locals, pay attention to those which you delete and make sure that their usages are deleted or updated as well.
 
+### Getting Started with npm
+You'll need to have some environment variables set in ~/.bashrc and/or ~/.bash_profile. Namely,
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+accountId=(your non-hyphenated AWS account id)
+
 ## www.aorlowski.com and aorlowski.com
 Requests to these webpages are forwarded to a Vercel deployment which is responsible for rendering the page you see.
 

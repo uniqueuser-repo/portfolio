@@ -2,6 +2,7 @@
 title: "Efficient Migration Guide: Transitioning from React to Next.js 13"
 subtitle: "Unlocking SEO Potential: Why React SPAs (Single Page Applications) Fall Short"
 date: "05/11/2023"
+slug: "migrating-react-to-nextjs"
 ---
 
 Not exactly sure why, but recently I've been super intent on spending my time doing things that are productive. I, like the average gamer and very stereotypical Computer Science graduate, waste away a ton of time surfing Reddit and YouTube or playing video games.

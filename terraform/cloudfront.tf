@@ -1,9 +1,8 @@
-# START CLOUDFRONT DISTRIBUTION FOR www.aorlowski.com, aorlowski.com
-# START CLOUDFRONT DISTRIBUTION FOR www.aorlowski.com, aorlowski.com
+# START CLOUDFRONT DISTRIBUTION FOR old.aorlowski.com
 resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
     origin {
-        domain_name = aws_s3_bucket.root-domain.bucket_regional_domain_name
-        origin_id = aws_s3_bucket.root-domain.bucket_regional_domain_name
+        domain_name = aws_s3_bucket.old-aorlowski-domain.bucket_regional_domain_name
+        origin_id = aws_s3_bucket.old-aorlowski-domain.bucket_regional_domain_name
         connection_attempts = 3
         connection_timeout = 10
     }
@@ -13,9 +12,7 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
     default_root_object = "index.html"
 
     aliases = [
-        local.domain_str,
-        local.root_domain_str,
-        local.local.old_domain_str
+        local.old_domain_str
     ]
     
 
@@ -38,7 +35,7 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
         }
       }
 
-      target_origin_id = aws_s3_bucket.root-domain.bucket_regional_domain_name
+      target_origin_id = aws_s3_bucket.old-aorlowski-domain.bucket_regional_domain_name
       viewer_protocol_policy = "redirect-to-https"
       compress = true
     }
@@ -49,12 +46,6 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
       iam_certificate_id = ""
       minimum_protocol_version = "TLSv1.2_2021"
       ssl_support_method =  "sni-only"
-    }
-
-    logging_config {
-        include_cookies = false
-        bucket = aws_s3_bucket.aorlowski_cloudwatch.bucket_domain_name
-        prefix = "aorlowski"
     }
 
     price_class = "PriceClass_100"
@@ -71,5 +62,71 @@ resource "aws_cloudfront_distribution" "aorlowski_s3_distribution" {
       response_page_path = "/index.html"
     }
 }
-# END CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
-# END CLOUDFRONT DISTRIBUTION FOR *aorlowski.com
+# END CLOUDFRONT DISTRIBUTION FOR old.aorlowski.com
+
+# START CLOUDFRONT DISTRIBUTION FOR images.aorlowski.com
+resource "aws_cloudfront_distribution" "images_s3_distribution" {
+    origin {
+      domain_name = aws_s3_bucket.images-aorlowski-com-bucket.bucket_regional_domain_name
+      origin_id = aws_s3_bucket.images-aorlowski-com-bucket.bucket_regional_domain_name
+      connection_attempts = 3
+      connection_timeout = 10
+      
+      s3_origin_config {
+        origin_access_identity = "${aws_cloudfront_origin_access_identity.oai_for_image_aorlowski_com.cloudfront_access_identity_path}"
+      }
+        
+    }
+
+    enabled = true
+    is_ipv6_enabled = true
+
+    aliases = [
+        local.images_domain_str
+    ]
+    
+
+    default_cache_behavior {
+      allowed_methods = [
+          "GET",
+          "HEAD"
+      ]
+
+      cached_methods = [
+          "GET",
+          "HEAD"
+      ]
+
+      forwarded_values {
+        query_string = false
+
+        cookies {
+            forward = "none"
+        }
+      }
+
+      target_origin_id = aws_s3_bucket.images-aorlowski-com-bucket.bucket_regional_domain_name
+      viewer_protocol_policy = "redirect-to-https"
+      compress = true
+    }
+
+    viewer_certificate {
+      acm_certificate_arn = aws_acm_certificate.certificate.arn
+      cloudfront_default_certificate = false
+      iam_certificate_id = ""
+      minimum_protocol_version = "TLSv1.2_2021"
+      ssl_support_method =  "sni-only"
+    }
+
+    price_class = "PriceClass_100"
+    restrictions {
+        geo_restriction {
+          restriction_type = "none"
+        }
+    }
+}
+
+resource "aws_cloudfront_origin_access_identity" "oai_for_image_aorlowski_com" {
+  comment = "OAI for images.aorlowski.com"
+}
+# END CLOUDFRONT DISTRIBUTION FOR images.aorlowski.com

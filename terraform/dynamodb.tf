@@ -12,7 +12,6 @@ resource "aws_dynamodb_table" "dynamodb_statistics_table" {
     stream_enabled = false
     table_class = "STANDARD_INFREQUENT_ACCESS"
     
-
     attribute {
       name = "statistic"
       type = "S"
@@ -53,3 +52,60 @@ resource "aws_dynamodb_table_item" "viewer_count_statistic" {
 }
 # END DYNAMODB FOR VIEWER COUNT
 # END DYNAMODB FOR VIEWER COUNT
+
+# START DYNAMODB FOR BLOG
+# START DYNAMODB FOR BLOG
+resource "aws_dynamodb_table" "blog_table" {
+  name = "blog"
+  provider = aws.east-1
+
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key = "id"
+
+  read_capacity = 0
+  write_capacity = 0
+  stream_enabled = false
+  table_class = "STANDARD_INFREQUENT_ACCESS"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  timeouts {}
+
+  lifecycle {
+    ignore_changes = [
+      write_capacity,
+      read_capacity
+    ]
+  }
+}
+
+
+# INSERT metadata record
+resource "aws_dynamodb_table_item" "metadata_record" {
+    provider = aws.east-1
+    table_name = aws_dynamodb_table.blog_table.name
+    hash_key = aws_dynamodb_table.blog_table.hash_key
+
+    item = <<ITEM
+    {
+        "id": {"S": "metadata"},
+        "blog_posts": {"L": []}
+    }
+    ITEM
+
+    lifecycle {
+        ignore_changes = [
+          item
+        ]
+    }
+}
+
+# END DYNAMODB FOR BLOG
+# END DYNAMODB FOR BLOG

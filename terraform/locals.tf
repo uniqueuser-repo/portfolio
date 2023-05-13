@@ -2,6 +2,7 @@ locals {
     root_domain_str = "aorlowski.com"
     subdomain_str = "www.aorlowski.com"
     domain_str = "aorlowski.com"
+    images_domain_str = "images.aorlowski.com"
     old_domain_str = "old.aorlowski.com"
     all_subdomain_str = "*.aorlowski.com"
     vercel_domain_str = "portfolio-six-pied-22.vercel.app"
@@ -31,6 +32,7 @@ locals {
     }
 
     build_dir = "../frontend/build/"
+    images_dir = "../images/"
 
     # I don't want Terraform to manage the hosted zone, so I will leave it hardcoded.
     hosted_zone_id = "Z02236511VLB1LAPEVX01"
