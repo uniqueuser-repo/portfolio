@@ -1,4 +1,3 @@
-"use client"
 import Banner from './/Banner'
 import Skills from './Skills'
 import Projects from './/Projects'
