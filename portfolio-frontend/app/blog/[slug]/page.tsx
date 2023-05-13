@@ -21,11 +21,11 @@ const PostPage = async (props: any) => {
     <>
       <NavBar/>
       <div>
-        <div className="my-12 text-center mt-8 md:mt-32">
+        <div className="my-12 text-center mt-20 md:mt-32">
           <h1 className="text-2xl text-slate-200 ">{post.data.title}</h1>
           <p className="text-slate-400 mt-2">{post.data.date}</p>
         </div>
-        <article className="prose prose-invert mx-auto mb-8 md:mb-24">
+        <article className="prose prose-invert mx-auto mb-16 md:mb-24">
           <Markdown>{post.content}</Markdown>
         </article>
       </div>

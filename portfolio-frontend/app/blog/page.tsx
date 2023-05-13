@@ -18,7 +18,7 @@ async function Blog() {
   return (
     <>
       <NavBar />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 md:mt-32 max-w-screen-xl mx-auto mb-8 md:mb-32">{postPreviews}</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 mt-20 md:mt-32 max-w-screen-xl mx-auto mb-8 mb-20 md:mb-32">{postPreviews}</div>
       <Footer />
     </>
 );
