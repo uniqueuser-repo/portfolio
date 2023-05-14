@@ -3,7 +3,6 @@ locals {
     subdomain_str = "www.aorlowski.com"
     domain_str = "aorlowski.com"
     blog_table_name = "blog"
-    images_domain_str = "images.aorlowski.com"
     old_domain_str = "old.aorlowski.com"
     all_subdomain_str = "*.aorlowski.com"
     vercel_domain_str = "portfolio-six-pied-22.vercel.app"

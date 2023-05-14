@@ -44,7 +44,7 @@ function Banner() {
                         <span className="tagline">Welcome to my Portfolio!</span>
                         <h1>{`Hi, I'm Andrew!`}</h1>
                         <h1><span className="wrap">{text}</span></h1>
-                        <p>A software engineer highly proficient in Java, Spring Boot, and Cloud services (particularly AWS - this site is hosted with Route53, S3, and CloudFront!). I am also fluent in Python, Bash, and have worked with many other languages and frameworks. Additionally, I have experience playing the role of DevOps and am highly familiar with Infrastructure as Code via Terraform.</p>
+                        <p>A software engineer highly proficient in Java, Spring Boot, and AWS cloud services. Additionally, I am proficient in Python, Node.js, and various other languages and frameworks. I have hands-on experience in DevOps and a strong understanding of Infrastructure as Code using Terraform.</p>
                     </Col>
                     <Col xs={12} md={6} xl={5}>
                         <Image src="/img/computer-icon.png" alt="Floating Computer" width={512} height={512} />

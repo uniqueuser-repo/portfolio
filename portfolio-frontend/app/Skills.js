@@ -1,4 +1,3 @@
-"use client"
 import {Container, Row, Col} from 'react-bootstrap';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -15,7 +14,6 @@ import s3 from '../public/img/S3.png';
 import route53 from '../public/img/route53.svg';
 import cLogo from '../public/img/c.png';
 import nodejsLogo from '../public/img/nodejs.png';
-import elasticacheLogo from '../public/img/ElastiCache.png';
 import typescriptLogo from '../public/img/typescript.webp';
 import ec2Logo from '../public/img/ec2.svg';
 import sqlLogo from '../public/img/sql.png';
@@ -31,7 +29,11 @@ import angularLogo from '../public/img/angular.webp';
 import colorSharp from "../public/img/color-sharp.png"
 import saaLogo from "../public/img/solutions_architect_associate.png";
 import cPractitionerLogo3 from "../public/img/cloud_practitioner3.png";
-import terraformAssociate from "../public/img/terraform_associate.png"
+import terraformAssociate from "../public/img/terraform_associate.png";
+import eventbridge from "../public/img/eventbridge-logo.png";
+import sqs from "../public/img/sqs-logo.png";
+import vercel from "../public/img/vercel-logo.svg"
+import tailwind from "../public/img/tailwind-logo.png"
 
 
 
@@ -146,16 +148,20 @@ function Skills() {
                                         <h5>C</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={typescriptLogo.src} alt="Typescript" />
-                                        <h5>Typescript</h5>
-                                    </div>
-                                    <div className="item">
                                         <img src={nodejsLogo.src} alt="Nodejs" />
                                         <h5>Nodejs</h5>
                                     </div>
                                     <div className="item">
-                                        <img src={elasticacheLogo.src} alt="ElastiCache" />
-                                        <h5>ElastiCache</h5>
+                                        <img src={typescriptLogo.src} alt="Typescript" />
+                                        <h5>Typescript</h5>
+                                    </div>
+                                    <div className="item">
+                                        <img src={eventbridge.src} alt="EventBridge" />
+                                        <h5>EventBridge</h5>
+                                    </div>
+                                    <div className="item">
+                                        <img src={sqs.src} alt="SQS" />
+                                        <h5>SQS</h5>
                                     </div>
                                 </Carousel>
                             </Container>
@@ -181,6 +187,18 @@ function Skills() {
                                     <div className="item">
                                         <img src={cssLogo.src} alt="CSS" />
                                         <h5>CSS</h5>
+                                    </div>
+                                    <div className="item">
+                                        <img src={tailwind.src} alt="Tailwind" />
+                                        <h5>Tailwind</h5>
+                                    </div>
+                                    <div className="item">
+                                        <img className="invert" src="https://www.svgrepo.com/show/354113/nextjs-icon.svg" alt="Next.js" />
+                                        <h5>Next.js</h5>
+                                    </div>
+                                    <div className="item">
+                                        <img className="invert" src={vercel.src} alt="Vercel" />
+                                        <h5>Vercel</h5>
                                     </div>
                                     <div className="item">
                                         <img src={dynatraceLogo.src} alt="DynaTrace" />

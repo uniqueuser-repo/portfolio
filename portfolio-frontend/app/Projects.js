@@ -28,7 +28,7 @@ function Projects() {
         },
         {
             title: "My Portfolio",
-            description: "This is a serverless web application. The frontend was constructed with React and Bootstrap. The domain is registered through Route53 and the static files are hosted on an S3 bucket with CloudFront as a CDN. A custom certificate is used to ensure a HTTPS connection is maintained. The visitor counter pings an API Gateway RESTful endpoint which triggers a Lambda that updates DynamoDB and returns the counter. All of which is backed by Terraform - meaning the whole stack can be torn down and built up in minutes without any manual intervention.",
+            description: "This is a serverless web application. It was constructed with React, Nextjs, and Bootstrap. The domain is registered through Route53 and the site is deployed on Vercel. Amazon Certificate Manager is used to ensure an HTTPS connection. The visit counter pings an API Gateway RESTful endpoint which triggers a Lambda that updates DynamoDB. All of which is backed by Terraform - meaning the whole stack can be torn down and built up in minutes with minimal manual intervention.",
             imgUrl: portfolioLogo
         }
     ];

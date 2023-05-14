@@ -38,13 +38,10 @@ AWS_REGION=
 accountId=(your non-hyphenated AWS account id)
 
 ## www.aorlowski.com and aorlowski.com
-Requests to these webpages are forwarded to a Vercel deployment which is responsible for rendering the page you see.
+Requests to these webpages are forwarded to a Vercel deployment which is responsible for rendering the page you see, which is the /portfolio-frontend folder.
 
 ## api.aorlowski.com
 Requests to this webpage are forwarded to API Gateway which forwards your request to a Lambda that processes it.
 
-## images.aorlowski.com
-Requests to this webpage are forwarded to a Cloudfront distribution which caches images from an S3 bucket.
-
 ## old.aorlowski.com
-Requests to this webpage are forwarded to a Cloudfront distribution whose origin is an S3 bucket for static website hosting. This webpage is the webpage before I made the transition from a React SPA to a Next.js 13 application.
+Requests to this webpage are forwarded to a Cloudfront distribution whose origin is an S3 bucket for static website hosting. This webpage is the webpage before I made the transition from a React SPA to a Next.js 13 application. That project is the /frontend folder.

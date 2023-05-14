@@ -15,23 +15,6 @@ resource "aws_route53_record" "old_aorlowski_cloudfront_record" {
 }
 # End Route 53 Record for old.aorlowski.com to have an A Record to the old CloudFront distribution
 
-# Start Route 53 Record for images.aorlowski.com to have an A Record to the old CloudFront distribution
-resource "aws_route53_record" "images_aorlowski_cloudfront_record" {
-    # I don't want Terraform to manage the hosted zone, so I will leave this hard coded.
-    zone_id = local.hosted_zone_id
-    name = local.images_domain_str
-    type = "A"
-
-    alias {
-        name = aws_cloudfront_distribution.images_s3_distribution.domain_name
-        zone_id = aws_cloudfront_distribution.images_s3_distribution.hosted_zone_id
-        evaluate_target_health = false
-    }
-
-    allow_overwrite = true
-}
-# End Route 53 Record for images.aorlowski.com to have an A Record to the old CloudFront distribution
-
 # Start Route 53 Record for aorlowski.com to have an A Record to Vercel
 resource "aws_route53_record" "aorlowski_cloudfront_record" {
     zone_id = local.hosted_zone_id
