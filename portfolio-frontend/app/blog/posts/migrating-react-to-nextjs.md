@@ -9,7 +9,7 @@ Not exactly sure why, but recently I've been super intent on spending my time do
 
 The thing I fixated on this time around (starting about five days ago) was trying to create a blog that would actually show up on search engines like google. If you search for my page now, you can't even find it:
 
-![site not showing in Google results](https://images.aorlowski.com/site-not-showing-in-google-min.png)
+![site not showing in Google results](/blog_images/site-not-showing-in-google-min.png)
 
 In this blog post, we'll explore the challenges faced by React Single Page Applications (SPAs) in terms of SEO optimization and how to overcome them by transitioning to Nextjs13. Discover effective strategies to boost the search engine visibility of your blog and increase organic traffic.
 
@@ -19,13 +19,13 @@ During my research, I discovered that React Single Page Applications (SPAs) [may
 
 When you visit a website, say [nytimes.com](nytimes.com), and visit an article, say [this one, which is an article about crossword puzzles titled "Time to Focus on Oneself"](https://www.nytimes.com/2023/05/11/crosswords/daily-puzzle-2023-05-12.html),  you'll notice the presence of forward slashes ("/") in the URL. It resembles a path.
 
-![url looks like a path](https://images.aorlowski.com/looks-like-a-path-min.png)
+![url looks like a path](/blog_images/looks-like-a-path-min.png)
 
 If nytimes.com were a React SPA, the path would appear in your browser's URL bar, and you as a user might think it's a distinct URL, but it's not. Instead, nytimes.com would provide your browser with the necessary tools to simulate the existence of that page. By clicking on an article from the landing page, JavaScript would modify the URL in your browser, which leads you to see the `/`'s, and JavaScript would execute to retrieve the necessary information of the article, but you never truly left `nytimes.com`. 
 
 Essentially, these pages are virtual and not indexed by Google's crawler. When Google visits your React SPA website, it sees only a single URL (e.g. nytimes.com, in this hypothetical where nytimes.com is a React SPA) and doesn't index the "fake" URLs. This can have a negative impact on SEO. Imagine if you were talking to a friend later and tried to search google for a New York Times article, and only the landing page showed up in the result:
 
-![only landing page in results](https://images.aorlowski.com/searching-for-time-to-focus-on-oneself-min.png)
+![only landing page in results](/blog_images/searching-for-time-to-focus-on-oneself-min.png)
 
 To improve SEO, it's crucial to consider the limitations of React SPAs and their impact on search engine indexing and ranking.
 
@@ -43,7 +43,7 @@ In Next.js, we have the distinction between [client components and server compon
 
 First, we should take a look at the landing page before the migration.
 
-![old website screenshot](https://images.aorlowski.com/old-website-min.png)
+![old website screenshot](/blog_images/old-website-min.png)
 
 Now, it looks pretty much the same. The only difference visually is that there's now a "Blog" option in the navbar at the top. The big difference under the hood is that it's on Nextjs13.
 
@@ -54,23 +54,23 @@ So what steps did I take to make this change?
 
 I started by using `npx create-next-app@latest` in terminal (I use the WSL2 - Windows Subsystem for Linux) to create a brand new (and empty) Nextjs project. Check out the image below and follow along.
 
-![output of npx create-next-app](https://images.aorlowski.com/create-next-app-min.png)
+![output of npx create-next-app](/blog_images/create-next-app-min.png)
 
 If you're particularly attentive, you might notice something in that image. Don't worry, though, I don't use that password for anything else. You can't do anything with it unless you're at my desktop and it's already logged in and you open an Ubuntu terminal. 😅
 
 Initially, my React application consisted of a single-page SPA acting as a landing page. Clicking the "resume" button in the navbar would simulate navigation to the `/resume` path, resembling a separate page. Transitioning between React components was straightforward. I duplicated all my components into the `/app` folder of the create-next-app project and added the `'use client';` statement at the top of each component.
 
-![screenshot of 'use client' at top of component](https://images.aorlowski.com/use-client-min.png)
+![screenshot of 'use client' at top of component](/blog_images/use-client-min.png)
 
 By default, Next.js assumes components are server-side components and renders them on the server, returning HTML to the client. Us labelling all of the componenets with `'use client';` negates that. This suffices for now, but my goal is to transform the `/resume` path into an actual page indexed by search engines. Eventually, we'll remove the `'use client'` statement.
 
 There are slight differences in the files responsible for rendering HTML and JavaScript when a page is requested. In React, this is typically done in `index.js`. However, within the `app/` directory, you'll find `page.tsx`, which serves as the rendered output when someone visits the website. Place your landing page React component in this file, temporarily excluding any switches or routers, and display only the landing page.
 
 old index.js:
-![old index.js file](https://images.aorlowski.com/old-page-min.png) 
+![old index.js file](/blog_images/old-page-min.png) 
 
 new page.tsx (note that the `App` component was removed and flattened - that's not relevant though):
-![migrated page.tsx file](https://images.aorlowski.com/migrated-page-min.png)
+![migrated page.tsx file](/blog_images/migrated-page-min.png)
 
 Ensure you wrap your client application component in an `<SSRProvider>`. This is a magic element that Nextjs 13 provides to us in order to ensure that auto generated IDs are consistent between the client and serve. Throughout the process, I alternated between starting the server using `npm run dev`, which alerted me about missing dependencies and suggested the specific ones needed. I resolved this by running `npm i {missing-dependency}` until the server successfully launched. Once it did, I observed plaintext HTML displaying the content of my components, albeit without the CSS styling.
 
@@ -78,15 +78,15 @@ Ensure you wrap your client application component in an `<SSRProvider>`. This is
 
 During the transition to Next.js, I noticed that most of the elements on my old website inherited CSS styling from Bootstrap libraries, specifically through .scss files.
 
-![table element with bootstrap styling](https://images.aorlowski.com/inheriting-bootstrap-css-min.png)
+![table element with bootstrap styling](/blog_images/inheriting-bootstrap-css-min.png)
 
 In Next.js, the equivalent functionality is achieved through the globals.css or globals.scss file located in the app/ directory. Initially, I used globals.css, but upon discovering that Bootstrap files were in .scss format, I changed the file extension. Fortunately, this adjustment didn't cause any issues except for a warning in VSCode related to Tailwind CSS.
 
-![vscode error on line with tailwind annotation](https://images.aorlowski.com/tailwind-error-min.png)
+![vscode error on line with tailwind annotation](/blog_images/tailwind-error-min.png)
 
 To incorporate the stylesheets used by my elements, I utilized @import annotations within the stylesheet. Additionally, it's important to import the globals.scss file in the app/layout.tsx file. Voila, my page looked great again!
 
-![import annotations in stylesheet](https://images.aorlowski.com/import-annotation-min.png)
+![import annotations in stylesheet](/blog_images/import-annotation-min.png)
 
 ## Migrating React Routes to NextJS
 
@@ -117,7 +117,7 @@ For SEO purposes, we want `/resume` to be a legitimate page that search engines 
 
 To reintroduce the routes we removed earlier, we can leverage Next.js' folder-based route convention. Let's take the example of the `/resume` path. First, create a folder named resume under the app directory. Inside the resume folder, add a `page.tsx` file. This `page.tsx` file will be rendered when a client visits the `/resume` path.
 
-![hierarchy of project and resume folder](https://images.aorlowski.com/resume-page-min.png)
+![hierarchy of project and resume folder](/blog_images/resume-page-min.png)
 
 Within the `page.tsx` file, include the component(s) that were previously responsible for rendering our resume page. Ensure that this page does not include the `'use client';` statement. It's crucial that the server handles the rendering to ensure visibility on search engines.
 
@@ -139,7 +139,7 @@ I'm a massive fan of AWS. I love it. AWS makes the serverless experience incredi
 
 AWS Amplify is far and away a more cost-effective alternative to Vercel. That being said, AWS Amplify isn't a service whose sole purpose is to support Nextjs. AWS Amplify is often behind on features (as of now, they "support" Nextjs13, but don't support Nextjs13 functionality such as middleware). Further, there are a bunch of horror stories about trying to host Nextjs on AWS Amplify on [Reddit](https://www.reddit.com/r/nextjs/comments/uamqbl/beware_of_nextjs_on_aws_amplify/). As the icing on the cake, Amplify doesn't exactly look well supported. As I write this, one of their [repositories has nearly 600 open issues](https://github.com/aws-amplify/amplify-cli).
 
-![600 open issues screenshot](https://images.aorlowski.com/600-issues-min.png)
+![600 open issues screenshot](/blog_images/600-issues-min.png)
 
 If you're a company that sees high volume, it might be worth a shot.
 
