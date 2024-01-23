@@ -35,7 +35,7 @@ export default function App() {
       </section>
 
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2023 Copyright
+        © 2024 Copyright
         <a id="CopyrightName" className='text-reset fw-bold' href='https://aorlowski.com'>
           Andrew Orlowski
         </a>
